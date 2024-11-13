@@ -366,7 +366,7 @@ export class MainInstance {
       parent: this._scene
     })
     AudioSource.createOrReplace(this.music, {
-      audioClipUrl: 'sounds/',
+      audioClipUrl: 'sounds/Top Hip Hop & Rap Party Mix (128 kbps).mp3',
       loop: true,
       playing: false
     })
