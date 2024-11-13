@@ -9,9 +9,11 @@ import {
   EasingFunction,
   Tween,
   inputSystem,
-  PointerEventType
+  PointerEventType,
+  Material,
+  MeshRenderer
 } from '@dcl/sdk/ecs'
-import { Vector3, Quaternion } from '@dcl/sdk/math'
+import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
 import { movePlayerTo } from '~system/RestrictedActions'
 import { GameController } from './controllers/game.controller'
 import { guardCheckPoint, NPC } from './mainDoorAccess'
@@ -393,65 +395,121 @@ export class MainInstance {
     //Ground Floor Images(EntranceRightSideV)//////////////////
     this.imageFromURL = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL, {
-      position: Vector3.create(13, 1.098233938217163, 11.8459077835083),
-      rotation: Quaternion.create(0, 0, 0, 1),
+      position: Vector3.create(13, 5.098233938217163, 11.8459077835083),
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
       scale: Vector3.create(4, 7.5, 1),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL)
+    Material.setPbrMaterial(this.imageFromURL, {
+      texture: Material.Texture.Common({
+        src: "images/LuizaBanner.png"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/LuizaBanner.png'
+      })
     })
 
     //Ground Floor Images(EntranceleftSideV)/////////////////////
     this.imageFromURL2 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL2, {
-      position: Vector3.create(3, 1.098233938217163, 11.8459077835083),
-      rotation: Quaternion.create(0, 0, 0, 1),
+      position: Vector3.create(3, 5.098233938217163, 11.8459077835083),
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
       scale: Vector3.create(4, 7.5, 1),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL2)
+    Material.setPbrMaterial(this.imageFromURL2, {
+      texture: Material.Texture.Common({
+        src: "images/CrystalBanner.png",
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/CrystalBanner.png'
+      })
     })
 
     //Ground Floor Images(CathouseClubH)//////////////////////////
     this.imageFromURL3 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL3, {
-      position: Vector3.create(0.7716683149337769, 4.080763816833496, 26.80219078063965),
-      rotation: Quaternion.create(
-        -1.5394153601527394e-15,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        0.7071068286895752
-      ),
+      position: Vector3.create(0.7716683149337769, 6.480763816833496, 26.80219078063965),
+      rotation: Quaternion.fromEulerDegrees(180,90,180),
       scale: Vector3.create(10.249049186706543, 4.674226760864258, 1.0000033378601074),
       parent: this._scene
     })
+    MeshRenderer.setPlane(this.imageFromURL3)
+    Material.setPbrMaterial(this.imageFromURL3, {
+      texture: Material.Texture.Common({
+        src: "images/horizontalBanner.png"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/horizontalBanner.png'
+      })
+    })
 
-    //Ground Floor Images(VideoHallLeftV)////////////////
+    //Ground Floor Images(VideoHallLeftV)//////////////// 
     this.imageFromURL4 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL4, {
-      position: Vector3.create(3.5118160247802734, 2.087592124938965, 36.23207092285156),
-      rotation: Quaternion.create(1.2649791204620694e-16, 1, -1.1920928244535389e-7, -2.9802322387695312e-8),
+      position: Vector3.create(3.5118160247802734, 5.087592124938965, 36.23207092285156),
+      rotation: Quaternion.fromEulerDegrees(180,180,180),
       scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL4)
+    Material.setPbrMaterial(this.imageFromURL4, {
+      texture: Material.Texture.Common({
+        src:'images/CathouseBanner.png'
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/CathouseBanner.png'
+      })
     })
 
     //Ground Floor Images(VideoHallLeftV)////////////////
     this.imageFromURL5 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL5, {
-      position: Vector3.create(12.316988945007324, 2.087592124938965, 36.20863723754883),
-      rotation: Quaternion.create(1.2649791204620694e-16, 1, -1.1920928244535389e-7, -2.9802322387695312e-8),
+      position: Vector3.create(12.316988945007324, 5.087592124938965, 36.20863723754883),
+      rotation: Quaternion.fromEulerDegrees(180,180,180),
       scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL5)
+    Material.setPbrMaterial(this.imageFromURL5, {
+      texture: Material.Texture.Common({
+        src: "images/SuellenBanner.png"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/SuellenBanner.png'
+      })
     })
 
     //Ground Floor Images(VideoHallLeftMultiLogo)//////////////
     this.imageFromURL6 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL6, {
-      position: Vector3.create(15.594130516052246, 1.549926519393921, 40.695884704589844),
-      rotation: Quaternion.create(
-        -9.402984745270505e-15,
-        0.7071067690849304,
-        -8.429368847373553e-8,
-        -0.7071068286895752
-      ),
+      position: Vector3.create(15.594130516052246, 5.549926519393921, 40.695884704589844),
+      rotation: Quaternion.fromEulerDegrees(180,270,180),
       scale: Vector3.create(8.295089721679688, 7.591179847717285, 1.0000035762786865),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL6) 
+    Material.setPbrMaterial(this.imageFromURL6, {
+      texture: Material.Texture.Common({
+        src: "images/multiLogo.png"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/multiLogo.png'
+      })
     })
 
     //Ground Floor VideoStream/////////////////////////
@@ -475,29 +533,42 @@ export class MainInstance {
     //Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL7 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL7, {
-      position: Vector3.create(15.566365242004395, 3.2104194164276123, 21.8288516998291),
-      rotation: Quaternion.create(
-        8.944758582000547e-17,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        -0.7071068286895752
-      ),
+      position: Vector3.create(15.566365242004395, 5.2104194164276123, 21.8288516998291),
+      rotation: Quaternion.fromEulerDegrees(180,270,180),
       scale: Vector3.create(4.556046485900879, 3.891484260559082, 0.9777539968490601),
       parent: this._scene
     })
+    MeshRenderer.setPlane(this.imageFromURL7) 
+    Material.setPbrMaterial(this.imageFromURL7, {
+      texture: Material.Texture.Common({
+        src: "images/DancerBanner.jpg"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/DancerBanner.jpg'
+      })
+    })
+
 
     //Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL8 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL8, {
-      position: Vector3.create(15.566365242004395, 3.2104194164276123, 15.291440963745117),
-      rotation: Quaternion.create(
-        8.944758582000547e-17,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        -0.7071068286895752
-      ),
+      position: Vector3.create(15.566365242004395, 5.2104194164276123, 15.291440963745117),
+      rotation: Quaternion.fromEulerDegrees(180,270,180),
       scale: Vector3.create(4.55604887008667, 3.891484260559082, 0.9777544736862183),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL8) 
+    Material.setPbrMaterial(this.imageFromURL8, {
+      texture: Material.Texture.Common({
+        src: "images/DancerBanner.jpg"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/DancerBanner.jpg'
+      })
     })
 
     //SecondFloor VideoStream////////////////////////
@@ -1577,10 +1648,21 @@ export class MainInstance {
 
     this.imageFromURL9 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL9, {
-      position: Vector3.create(7.792987823486328, 10.60340690612793, 0.5769305229187012),
-      rotation: Quaternion.create(-1.158991539486386e-14, -1, 1.1920927533992653e-7, 0),
+      position: Vector3.create(7.992987823486328, 19.40340690612793, 0.5769305229187012),
+      rotation: Quaternion.fromEulerDegrees(0,0,0),
       scale: Vector3.create(6.464900016784668, 17.48285484313965, 1.0000008344650269),
       parent: this._scene
+    })
+    MeshRenderer.setPlane(this.imageFromURL9) 
+    Material.setPbrMaterial(this.imageFromURL9, {
+      texture: Material.Texture.Common({ 
+        src: "images/joi.png"
+      }),
+      emissiveColor: Color4.White(),
+      emissiveIntensity: 0.3,
+      emissiveTexture: Material.Texture.Common({
+        src: 'images/joi.png'
+      })
     })
 
     //Third Floor BaseFile........................................
