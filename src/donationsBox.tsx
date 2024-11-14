@@ -52,9 +52,9 @@ export class DonationsBox {
       scale,
       rotation
     })
-    Transform.create(this.collider,{
+    Transform.create(this.collider, {
       position,
-      scale: Vector3.create(0.2,0.2,0.2),
+      scale: Vector3.create(0.2, 0.2, 0.2),
       rotation
     })
     MeshCollider.setBox(this.collider)
@@ -108,9 +108,24 @@ export class DonationsBox {
     this.background_visible = false
   }
 
-  makeDonation() {
-    console.log('MAKING DONATION OF', this.defaultAmount)
-    //TODO: Add mana send function
+  async makeDonation(donation: number) {
+    console.log('Making a donation of: ' + donation)
+    executeTask(async () => {
+      try {
+        const provider = await createEthereumProvider()
+        const requestManager = new EthConnect.RequestManager(provider)
+        const factory = new EthConnect.ContractFactory(requestManager, abi)
+        const contract = (await factory.at('0xe7334cf43532423bfd163b32aCc0D72922132226')) as any
+        const player = await getPlayer()
+        const address = player?.userId
+        const res = await contract.setBalance(address, donation, {
+          from: address
+        })
+        console.log(res)
+      } catch (error: any) {
+        console.log(error.toString())
+      }
+    })
   }
 
   createDonationUI(): ReactEcs.JSX.Element {
@@ -174,7 +189,7 @@ export class DonationsBox {
               texture: { src: this.acceptButton.atlasSrc }
             }}
             onMouseDown={() => {
-              this.makeDonation()
+              this.makeDonation(this.toDonate)
               this.closeUI()
             }}
           ></UiEntity>
