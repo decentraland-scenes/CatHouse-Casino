@@ -156,7 +156,7 @@ export class MainInstance {
               end: Vector3.create(8.065906524658203, 7, 3.5)
             }),
             duration: 1500,
-            easingFunction: EasingFunction.EF_LINEAR,
+            easingFunction: EasingFunction.EF_LINEAR
           })
           AudioSource.getMutable(this.music).playing = true
           AudioSource.getMutable(this.music).volume = 1
@@ -176,7 +176,7 @@ export class MainInstance {
       this.gameController
     )
     this.tip2 = new DonationsBox(
-      Vector3.create(7.55,12,24.7),
+      Vector3.create(7.55, 12, 24.7),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
@@ -184,15 +184,15 @@ export class MainInstance {
       this.gameController
     )
     this.tip3 = new DonationsBox(
-      Vector3.create(7.55,12,16.6),
+      Vector3.create(7.55, 12, 16.6),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
       10,
       this.gameController
     )
-    this.tip4= new DonationsBox(
-      Vector3.create(13.98,11.78,8),
+    this.tip4 = new DonationsBox(
+      Vector3.create(13.98, 11.78, 8),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
@@ -200,7 +200,7 @@ export class MainInstance {
       this.gameController
     )
     this.tip5 = new DonationsBox(
-      Vector3.create(2.25,11.78,8),
+      Vector3.create(2.25, 11.78, 8),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
@@ -208,7 +208,7 @@ export class MainInstance {
       this.gameController
     )
     this.tip6 = new DonationsBox(
-      Vector3.create(14.68,19.03,10),
+      Vector3.create(14.68, 19.03, 10),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
@@ -216,7 +216,7 @@ export class MainInstance {
       this.gameController
     )
     this.tip7 = new DonationsBox(
-      Vector3.create(1.16,19.03,10),
+      Vector3.create(1.16, 19.03, 10),
       Vector3.create(0.05, 0.05, 0.05),
       Quaternion.fromEulerDegrees(0, 0, 0),
       '0x73f6D4eda98DA27CAF1FC32792109eF8e3A51a1f',
@@ -224,93 +224,89 @@ export class MainInstance {
       this.gameController
     )
     //Dance Areas
-    this.danceArea_1 = new DanceArea(this.gameController,
+    this.danceArea_1 = new DanceArea(
+      this.gameController,
       Vector3.create(7.91103458404541, 0.09260523319244385, 40.509727478027344),
       Vector3.create(10.423848152160645, 1, 8.243631362915039),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_2 = new DanceArea(this.gameController,
+    this.danceArea_2 = new DanceArea(
+      this.gameController,
       Vector3.create(8.170372009277344, 10.481361389160156, 41.3394889831543),
       Vector3.create(3.9054834842681885, 0.2, 3.448207139968872),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_3 = new DanceArea(this.gameController,
+    this.danceArea_3 = new DanceArea(
+      this.gameController,
       Vector3.create(7.667209625244141, 10.88877010345459, 24.533428192138672),
       Vector3.create(6.003643989562988, 0.2, 22.413347244262695),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_4 = new DanceArea(this.gameController,
+    this.danceArea_4 = new DanceArea(
+      this.gameController,
       Vector3.create(14.10114860534668, 10.724449157714844, 10.337156295776367),
       Vector3.create(2.710418701171875, 0.5, 3.8268330097198486),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_5 = new DanceArea(this.gameController,
+    this.danceArea_5 = new DanceArea(
+      this.gameController,
       Vector3.create(2.0071144104003906, 10.71868896484375, 10.337156295776367),
       Vector3.create(2.710418701171875, 0.6, 3.8268330097198486),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_6 = new DanceArea(this.gameController,
+    this.danceArea_6 = new DanceArea(
+      this.gameController,
       Vector3.create(14.041966438293457, 17.887067794799805, 12.153299331665039),
       Vector3.create(2.710418701171875, 0.7, 3.8268330097198486),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_7 = new DanceArea(this.gameController,
+    this.danceArea_7 = new DanceArea(
+      this.gameController,
       Vector3.create(1.8554704189300537, 17.887069702148438, 12.181068420410156),
       Vector3.create(2.710418701171875, 0.7, 3.8268330097198486),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
-    this.danceArea_8 = new DanceArea(this.gameController,
+    this.danceArea_8 = new DanceArea(
+      this.gameController,
       Vector3.create(8.063483238220215, 29, 34.007625579833984),
       Vector3.create(5.48532772064209, 0.2, 8.243631362915039),
-      Quaternion.create(0, 0, 0, 1),
+      Quaternion.create(0, 0, 0, 1)
     )
     engine.addSystem(() => {
       console.log(this.danceArea_1.danceZone)
-      const cmd = inputSystem.getInputCommand(
-        InputAction.IA_FORWARD,
-        PointerEventType.PET_DOWN,
-      )
-      const cmd2 = inputSystem.getInputCommand(
-        InputAction.IA_BACKWARD,
-        PointerEventType.PET_DOWN,
-      )
-      const cmd3 = inputSystem.getInputCommand(
-        InputAction.IA_LEFT,
-        PointerEventType.PET_DOWN,
-      )
-      const cmd4 = inputSystem.getInputCommand(
-        InputAction.IA_RIGHT,
-        PointerEventType.PET_DOWN,
-      )
+      const cmd = inputSystem.getInputCommand(InputAction.IA_FORWARD, PointerEventType.PET_DOWN)
+      const cmd2 = inputSystem.getInputCommand(InputAction.IA_BACKWARD, PointerEventType.PET_DOWN)
+      const cmd3 = inputSystem.getInputCommand(InputAction.IA_LEFT, PointerEventType.PET_DOWN)
+      const cmd4 = inputSystem.getInputCommand(InputAction.IA_RIGHT, PointerEventType.PET_DOWN)
       if (cmd || cmd2 || cmd3 || cmd4) {
-        if (this.danceArea_1.danceZone === true){
+        if (this.danceArea_1.danceZone === true) {
           this.danceArea_1.danceSystem.dance()
         }
-        if (this.danceArea_2.danceZone === true){
+        if (this.danceArea_2.danceZone === true) {
           this.danceArea_2.danceSystem.routine = 'all'
           this.danceArea_2.danceSystem.dance()
         }
-        if (this.danceArea_3.danceZone === true){
+        if (this.danceArea_3.danceZone === true) {
           this.danceArea_3.danceSystem.routine = 'all'
           this.danceArea_3.danceSystem.dance()
         }
-        if (this.danceArea_4.danceZone === true){
+        if (this.danceArea_4.danceZone === true) {
           this.danceArea_4.danceSystem.routine = 'all'
           this.danceArea_4.danceSystem.dance()
         }
-        if (this.danceArea_5.danceZone === true){
+        if (this.danceArea_5.danceZone === true) {
           this.danceArea_5.danceSystem.routine = 'all'
           this.danceArea_5.danceSystem.dance()
         }
-        if (this.danceArea_6.danceZone === true){
+        if (this.danceArea_6.danceZone === true) {
           this.danceArea_6.danceSystem.routine = 'all'
           this.danceArea_6.danceSystem.dance()
         }
-        if (this.danceArea_7.danceZone === true){
+        if (this.danceArea_7.danceZone === true) {
           this.danceArea_7.danceSystem.routine = 'all'
           this.danceArea_7.danceSystem.dance()
         }
-        if (this.danceArea_8.danceZone === true){
+        if (this.danceArea_8.danceZone === true) {
           this.danceArea_8.danceSystem.routine = 'all'
           this.danceArea_8.danceSystem.dance()
         }
@@ -403,7 +399,7 @@ export class MainInstance {
     MeshRenderer.setPlane(this.imageFromURL)
     Material.setPbrMaterial(this.imageFromURL, {
       texture: Material.Texture.Common({
-        src: "images/LuizaBanner.png"
+        src: 'images/LuizaBanner.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -423,7 +419,7 @@ export class MainInstance {
     MeshRenderer.setPlane(this.imageFromURL2)
     Material.setPbrMaterial(this.imageFromURL2, {
       texture: Material.Texture.Common({
-        src: "images/CrystalBanner.png",
+        src: 'images/CrystalBanner.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -436,14 +432,14 @@ export class MainInstance {
     this.imageFromURL3 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL3, {
       position: Vector3.create(0.7716683149337769, 6.480763816833496, 26.80219078063965),
-      rotation: Quaternion.fromEulerDegrees(180,90,180),
+      rotation: Quaternion.fromEulerDegrees(180, 90, 180),
       scale: Vector3.create(10.249049186706543, 4.674226760864258, 1.0000033378601074),
       parent: this._scene
     })
     MeshRenderer.setPlane(this.imageFromURL3)
     Material.setPbrMaterial(this.imageFromURL3, {
       texture: Material.Texture.Common({
-        src: "images/horizontalBanner.png"
+        src: 'images/horizontalBanner.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -452,18 +448,18 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(VideoHallLeftV)//////////////// 
+    //Ground Floor Images(VideoHallLeftV)////////////////
     this.imageFromURL4 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL4, {
       position: Vector3.create(3.5118160247802734, 5.087592124938965, 36.23207092285156),
-      rotation: Quaternion.fromEulerDegrees(180,180,180),
+      rotation: Quaternion.fromEulerDegrees(180, 180, 180),
       scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
     })
     MeshRenderer.setPlane(this.imageFromURL4)
     Material.setPbrMaterial(this.imageFromURL4, {
       texture: Material.Texture.Common({
-        src:'images/CathouseBanner.png'
+        src: 'images/CathouseBanner.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -476,14 +472,14 @@ export class MainInstance {
     this.imageFromURL5 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL5, {
       position: Vector3.create(12.316988945007324, 5.087592124938965, 36.20863723754883),
-      rotation: Quaternion.fromEulerDegrees(180,180,180),
+      rotation: Quaternion.fromEulerDegrees(180, 180, 180),
       scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
     })
     MeshRenderer.setPlane(this.imageFromURL5)
     Material.setPbrMaterial(this.imageFromURL5, {
       texture: Material.Texture.Common({
-        src: "images/SuellenBanner.png"
+        src: 'images/SuellenBanner.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -496,14 +492,14 @@ export class MainInstance {
     this.imageFromURL6 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL6, {
       position: Vector3.create(15.594130516052246, 5.549926519393921, 40.695884704589844),
-      rotation: Quaternion.fromEulerDegrees(180,270,180),
+      rotation: Quaternion.fromEulerDegrees(180, 270, 180),
       scale: Vector3.create(8.295089721679688, 7.591179847717285, 1.0000035762786865),
       parent: this._scene
     })
-    MeshRenderer.setPlane(this.imageFromURL6) 
+    MeshRenderer.setPlane(this.imageFromURL6)
     Material.setPbrMaterial(this.imageFromURL6, {
       texture: Material.Texture.Common({
-        src: "images/multiLogo.png"
+        src: 'images/multiLogo.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -534,14 +530,14 @@ export class MainInstance {
     this.imageFromURL7 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL7, {
       position: Vector3.create(15.566365242004395, 5.2104194164276123, 21.8288516998291),
-      rotation: Quaternion.fromEulerDegrees(180,270,180),
+      rotation: Quaternion.fromEulerDegrees(180, 270, 180),
       scale: Vector3.create(4.556046485900879, 3.891484260559082, 0.9777539968490601),
       parent: this._scene
     })
-    MeshRenderer.setPlane(this.imageFromURL7) 
+    MeshRenderer.setPlane(this.imageFromURL7)
     Material.setPbrMaterial(this.imageFromURL7, {
       texture: Material.Texture.Common({
-        src: "images/DancerBanner.jpg"
+        src: 'images/DancerBanner.jpg'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -550,19 +546,18 @@ export class MainInstance {
       })
     })
 
-
     //Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL8 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL8, {
       position: Vector3.create(15.566365242004395, 5.2104194164276123, 15.291440963745117),
-      rotation: Quaternion.fromEulerDegrees(180,270,180),
+      rotation: Quaternion.fromEulerDegrees(180, 270, 180),
       scale: Vector3.create(4.55604887008667, 3.891484260559082, 0.9777544736862183),
       parent: this._scene
     })
-    MeshRenderer.setPlane(this.imageFromURL8) 
+    MeshRenderer.setPlane(this.imageFromURL8)
     Material.setPbrMaterial(this.imageFromURL8, {
       texture: Material.Texture.Common({
-        src: "images/DancerBanner.jpg"
+        src: 'images/DancerBanner.jpg'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
@@ -1649,14 +1644,14 @@ export class MainInstance {
     this.imageFromURL9 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL9, {
       position: Vector3.create(7.992987823486328, 19.40340690612793, 0.5769305229187012),
-      rotation: Quaternion.fromEulerDegrees(0,0,0),
+      rotation: Quaternion.fromEulerDegrees(0, 0, 0),
       scale: Vector3.create(6.464900016784668, 17.48285484313965, 1.0000008344650269),
       parent: this._scene
     })
-    MeshRenderer.setPlane(this.imageFromURL9) 
+    MeshRenderer.setPlane(this.imageFromURL9)
     Material.setPbrMaterial(this.imageFromURL9, {
-      texture: Material.Texture.Common({ 
-        src: "images/joi.png"
+      texture: Material.Texture.Common({
+        src: 'images/joi.png'
       }),
       emissiveColor: Color4.White(),
       emissiveIntensity: 0.3,
