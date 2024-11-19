@@ -28,17 +28,17 @@ import * as utils from '@dcl-sdk/utils'
 
 // TEST VIDEOS FOR STREAMING - REPLACE THEM WITH THE CUSTOM LINK
 const videoStreamGroundSrc =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 const videoStreamFloor2Src =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 const videoStreamFloor3Src =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 const videoStreamFloor4Src =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 const videoStreamFloor4bSrc =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 const videoStreamFloor5Src =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+  'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/ce43td2ot1o9sh5h/index.m3u8' // Drop your custom link to stream video
 
 export class MainInstance {
   gameController: GameController
@@ -538,7 +538,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream)
     VideoPlayer.create(this.videoStream, {
       src: videoStreamGroundSrc,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture = Material.Texture.Video({ videoPlayerEntity: this.videoStream })
     Material.setBasicMaterial(this.videoStream, {
@@ -631,7 +632,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream2)
     VideoPlayer.create(this.videoStream2, {
       src: videoStreamFloor2Src,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture2 = Material.Texture.Video({ videoPlayerEntity: this.videoStream2 })
     Material.setBasicMaterial(this.videoStream2, {
@@ -757,7 +759,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream3)
     VideoPlayer.create(this.videoStream3, {
       src: videoStreamFloor3Src,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture3 = Material.Texture.Video({ videoPlayerEntity: this.videoStream3 })
     Material.setBasicMaterial(this.videoStream3, {
@@ -830,7 +833,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream4)
     VideoPlayer.create(this.videoStream4, {
       src: videoStreamFloor4Src,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture4 = Material.Texture.Video({ videoPlayerEntity: this.videoStream4 })
     Material.setBasicMaterial(this.videoStream4, {
@@ -863,7 +867,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream5)
     VideoPlayer.create(this.videoStream5, {
       src: videoStreamFloor4bSrc,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture5 = Material.Texture.Video({ videoPlayerEntity: this.videoStream5 })
     Material.setBasicMaterial(this.videoStream5, {
@@ -1024,7 +1029,8 @@ export class MainInstance {
     MeshRenderer.setPlane(this.videoStream6)
     VideoPlayer.create(this.videoStream6, {
       src: videoStreamFloor5Src,
-      playing: false
+      playing: false,
+      loop: true
     })
     const videoTexture6 = Material.Texture.Video({ videoPlayerEntity: this.videoStream6 })
     Material.setBasicMaterial(this.videoStream6, {
