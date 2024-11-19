@@ -12,10 +12,11 @@ import {
   PointerEventType,
   Material,
   MeshRenderer,
-  VideoPlayer
+  VideoPlayer,
+  NftShape
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
-import { movePlayerTo } from '~system/RestrictedActions'
+import { movePlayerTo, openNftDialog } from '~system/RestrictedActions'
 import { type GameController } from './controllers/game.controller'
 import { guardCheckPoint, NPC } from './mainDoorAccess'
 import { closeDialogWindow, openDialogWindow } from 'dcl-npc-toolkit'
@@ -912,58 +913,111 @@ export class MainInstance {
     // Fourth Floor NFT Picture Frame1///////////////////////////
     this.nftPictureFrame = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame, {
-      position: Vector3.create(0.5295686721801758, 24.883743286132812, 38.06391143798828),
-      rotation: Quaternion.create(
-        -1.8126884118485924e-15,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        0.7071068286895752
-      ),
+      position: Vector3.create(0.5295686721801758, 25.883743286132812, 38.06391143798828),
+      rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.00002384185791, 5.621730804443359, 0.45611241459846497),
       parent: this._scene
     })
+    NftShape.create(this.nftPictureFrame, {
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
+    });
+    MeshCollider.setPlane(this.nftPictureFrame)
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.nftPictureFrame,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Open UI'
+        }
+      },
+      () => {
+        openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        })
+      }
+    )
 
     // Fourth Floor NFT Picture Frame2///////////////////////////
     this.nftPictureFrame2 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame2, {
-      position: Vector3.create(0.5295686721801758, 24.883743286132812, 33.56391143798828),
-      rotation: Quaternion.create(
-        -1.8126884118485924e-15,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        0.7071068286895752
-      ),
+      position: Vector3.create(0.5295686721801758, 25.883743286132812, 33.56391143798828),
+      rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000029563903809, 5.621730804443359, 0.45611265301704407),
       parent: this._scene
     })
+    NftShape.create(this.nftPictureFrame2, {
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
+    });
+    MeshCollider.setPlane(this.nftPictureFrame2)
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.nftPictureFrame2,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Open UI'
+        }
+      },
+      () => {
+        openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        })
+      }
+    )
+    
 
     // Fourth Floor NFT Picture Frame3///////////////////////////
     this.nftPictureFrame3 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame3, {
-      position: Vector3.create(0.5295686721801758, 24.883743286132812, 29.06391143798828),
-      rotation: Quaternion.create(
-        -1.8126884118485924e-15,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        0.7071068286895752
-      ),
+      position: Vector3.create(0.5295686721801758, 25.883743286132812, 29.06391143798828),
+      rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000032424926758, 5.621730804443359, 0.4561127722263336),
       parent: this._scene
     })
+    NftShape.create(this.nftPictureFrame3, {
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
+    });
+    MeshCollider.setPlane(this.nftPictureFrame3)
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.nftPictureFrame3,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Open UI'
+        }
+      },
+      () => {
+        openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        })
+      }
+    )
 
     // Fourth Floor NFT Picture Frame4///////////////////////////
     this.nftPictureFrame4 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame4, {
-      position: Vector3.create(0.5295686721801758, 24.883743286132812, 24.56391143798828),
-      rotation: Quaternion.create(
-        -1.8126884118485924e-15,
-        0.7071068286895752,
-        -8.429369557916289e-8,
-        0.7071068286895752
-      ),
+      position: Vector3.create(0.5295686721801758, 25.883743286132812, 24.56391143798828),
+      rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000035285949707, 5.621730804443359, 0.45611289143562317),
       parent: this._scene
     })
+    NftShape.create(this.nftPictureFrame4, {
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
+    });
+    MeshCollider.setPlane(this.nftPictureFrame4)
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.nftPictureFrame4,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Open UI'
+        }
+      },
+      () => {
+        openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        })
+      }
+    )
 
     // Top Floor TriggerArea////////////////////////////////
     this.triggerArea8 = engine.addEntity()
