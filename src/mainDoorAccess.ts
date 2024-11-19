@@ -1,4 +1,4 @@
-import { engine, type Entity, InputAction, pointerEventsSystem } from '@dcl/sdk/ecs'
+import { Billboard, BillboardMode, engine, type Entity } from '@dcl/sdk/ecs'
 import { type Quaternion, Vector3 } from '@dcl/sdk/math'
 import * as npc from 'dcl-npc-toolkit'
 import { type Dialog } from 'dcl-npc-toolkit'
@@ -14,8 +14,7 @@ export class NPC {
     rotation: Quaternion,
     GLTF: string,
     reactDistance: number,
-    onActivate: () => void = () => {},
-    onClick: () => void = () => {}
+    onActivate: () => void = () => {}
   ) {
     this.entity = npc.create(
       {
@@ -40,18 +39,7 @@ export class NPC {
         onActivate()
       }
     )
-    pointerEventsSystem.onPointerDown(
-      {
-        entity: this.entity,
-        opts: {
-          button: InputAction.IA_POINTER,
-          hoverText: 'Talk'
-        }
-      },
-      () => {
-        onClick()
-      }
-    )
+    Billboard.create(this.entity, { billboardMode: BillboardMode.BM_Y })
   }
 }
 
