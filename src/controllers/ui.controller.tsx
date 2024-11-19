@@ -1,5 +1,6 @@
-import ReactEcs, { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
-import { GameController } from './game.controller'
+import type ReactEcs from '@dcl/sdk/react-ecs';
+import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
+import { type GameController } from './game.controller'
 import { NpcUtilsUi } from 'dcl-npc-toolkit'
 
 export class UiController {
