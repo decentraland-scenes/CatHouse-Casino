@@ -27,18 +27,18 @@ import { DanceArea } from './dancingFloors'
 import * as utils from '@dcl-sdk/utils'
 
 // TEST VIDEOS FOR STREAMING - REPLACE THEM WITH THE CUSTOM LINK
-const videoStream_src_ground =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_2_floor =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_3_floor =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_4_floor =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_4b_floor =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_top_floor =
-  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStreamGroundSrc =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+const videoStreamFloor2Src =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+const videoStreamFloor3Src =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+const videoStreamFloor4Src =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+const videoStreamFloor4bSrc =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
+const videoStreamFloor5Src =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' // Drop your custom link to stream video
 
 export class MainInstance {
   gameController: GameController
@@ -295,7 +295,7 @@ export class MainInstance {
       const cmd2 = inputSystem.getInputCommand(InputAction.IA_BACKWARD, PointerEventType.PET_DOWN)
       const cmd3 = inputSystem.getInputCommand(InputAction.IA_LEFT, PointerEventType.PET_DOWN)
       const cmd4 = inputSystem.getInputCommand(InputAction.IA_RIGHT, PointerEventType.PET_DOWN)
-      if (cmd || cmd2 || cmd3 || cmd4) {
+      if (cmd != null || cmd2 != null || cmd3 != null || cmd4 != null) {
         if (this.danceArea_1.danceZone) {
           this.danceArea_1.danceSystem.dance()
         }
@@ -331,7 +331,7 @@ export class MainInstance {
     })
   }
 
-  setUp() {
+  setUp(): void {
     // Base Scene.......................................
     this._scene = engine.addEntity()
     Transform.createOrReplace(this._scene, {
@@ -400,7 +400,7 @@ export class MainInstance {
     // Ground/First Floor MainDoor ClickArea/////////////////
     this.clickArea = engine.addEntity()
     Transform.createOrReplace(this.clickArea, {
-      position: Vector3.create(8, 0.05129086971282959, 3.4753189086914062),
+      position: Vector3.create(8, 0.05129086971282959, 3.475318908691406),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(5.2679362297058105, 5.57119607925415, 0.21571019291877747),
       parent: this._scene
@@ -471,7 +471,7 @@ export class MainInstance {
     Transform.createOrReplace(this.imageFromURL4, {
       position: Vector3.create(3.5118160247802734, 5.087592124938965, 36.23207092285156),
       rotation: Quaternion.fromEulerDegrees(180, 180, 180),
-      scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
+      scale: Vector3.create(3.545692443847656, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
     })
     MeshRenderer.setPlane(this.imageFromURL4)
@@ -491,7 +491,7 @@ export class MainInstance {
     Transform.createOrReplace(this.imageFromURL5, {
       position: Vector3.create(12.316988945007324, 5.087592124938965, 36.20863723754883),
       rotation: Quaternion.fromEulerDegrees(180, 180, 180),
-      scale: Vector3.create(3.5456924438476562, 4.674226760864258, 0.9777506589889526),
+      scale: Vector3.create(3.545692443847656, 4.674226760864258, 0.9777506589889526),
       parent: this._scene
     })
     MeshRenderer.setPlane(this.imageFromURL5)
@@ -529,7 +529,7 @@ export class MainInstance {
     // Ground Floor VideoStream/////////////////////////
     this.videoStream = engine.addEntity()
     Transform.createOrReplace(this.videoStream, {
-      position: Vector3.create(8.494138984680176, 4.1933490085601807, 47.39051055908203),
+      position: Vector3.create(8.494, 4.19, 47.39051055908203),
       rotation: Quaternion.fromEulerDegrees(180, 180, 180),
       scale: Vector3.create(9.8353781700134277, 6.452238178253174, 1.0000009536743164),
       parent: this._scene
@@ -537,7 +537,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream)
     MeshRenderer.setPlane(this.videoStream)
     VideoPlayer.create(this.videoStream, {
-      src: videoStream_src_ground,
+      src: videoStreamGroundSrc,
       playing: false
     })
     const videoTexture = Material.Texture.Video({ videoPlayerEntity: this.videoStream })
@@ -555,8 +555,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream).playing === false) {
           VideoPlayer.getMutable(this.videoStream).playing = true
-        } else {
-          return
         }
       }
     )
@@ -577,8 +575,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream).playing === false) {
           VideoPlayer.getMutable(this.videoStream).playing = true
-        } else {
-          return
         }
       }
     )
@@ -634,7 +630,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream2)
     MeshRenderer.setPlane(this.videoStream2)
     VideoPlayer.create(this.videoStream2, {
-      src: videoStream_src_2_floor,
+      src: videoStreamFloor2Src,
       playing: false
     })
     const videoTexture2 = Material.Texture.Video({ videoPlayerEntity: this.videoStream2 })
@@ -652,8 +648,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -674,8 +668,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -696,8 +688,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -718,8 +708,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -741,8 +729,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -755,8 +741,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream2).playing === false) {
           VideoPlayer.getMutable(this.videoStream2).playing = true
-        } else {
-          return
         }
       }
     )
@@ -764,7 +748,7 @@ export class MainInstance {
     // Third Floor VideoStream////////////////////////////
     this.videoStream3 = engine.addEntity()
     Transform.createOrReplace(this.videoStream3, {
-      position: Vector3.create(7.920665740966797, 21.221086883544922, 1.0475330352783203),
+      position: Vector3.create(7.920665740966797, 21.22108688354492, 1.0475330352783203),
       rotation: Quaternion.fromEulerDegrees(0, 180, 0),
       scale: Vector3.create(10.6798388957977295, 4.8050894737243652, 1.0000009536743164),
       parent: this._scene
@@ -772,7 +756,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream3)
     MeshRenderer.setPlane(this.videoStream3)
     VideoPlayer.create(this.videoStream3, {
-      src: videoStream_src_3_floor,
+      src: videoStreamFloor3Src,
       playing: false
     })
     const videoTexture3 = Material.Texture.Video({ videoPlayerEntity: this.videoStream3 })
@@ -790,8 +774,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream3).playing === false) {
           VideoPlayer.getMutable(this.videoStream3).playing = true
-        } else {
-          return
         }
       }
     )
@@ -812,8 +794,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream3).playing === false) {
           VideoPlayer.getMutable(this.videoStream3).playing = true
-        } else {
-          return
         }
       }
     )
@@ -834,8 +814,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream3).playing === false) {
           VideoPlayer.getMutable(this.videoStream3).playing = true
-        } else {
-          return
         }
       }
     )
@@ -851,7 +829,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream4)
     MeshRenderer.setPlane(this.videoStream4)
     VideoPlayer.create(this.videoStream4, {
-      src: videoStream_src_4_floor,
+      src: videoStreamFloor4Src,
       playing: false
     })
     const videoTexture4 = Material.Texture.Video({ videoPlayerEntity: this.videoStream4 })
@@ -869,8 +847,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream4).playing === false) {
           VideoPlayer.getMutable(this.videoStream4).playing = true
-        } else {
-          return
         }
       }
     )
@@ -886,7 +862,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream5)
     MeshRenderer.setPlane(this.videoStream5)
     VideoPlayer.create(this.videoStream5, {
-      src: videoStream_src_4b_floor,
+      src: videoStreamFloor4bSrc,
       playing: false
     })
     const videoTexture5 = Material.Texture.Video({ videoPlayerEntity: this.videoStream5 })
@@ -904,8 +880,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream5).playing === false) {
           VideoPlayer.getMutable(this.videoStream5).playing = true
-        } else {
-          return
         }
       }
     )
@@ -913,14 +887,14 @@ export class MainInstance {
     // Fourth Floor NFT Picture Frame1///////////////////////////
     this.nftPictureFrame = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame, {
-      position: Vector3.create(0.5295686721801758, 25.883743286132812, 38.06391143798828),
+      position: Vector3.create(0.5295686721801758, 25.88374328613281, 38.06391143798828),
       rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.00002384185791, 5.621730804443359, 0.45611241459846497),
       parent: this._scene
     })
     NftShape.create(this.nftPictureFrame, {
-      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
-    });
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601' // Reemplaza con tu contrato e ID
+    })
     MeshCollider.setPlane(this.nftPictureFrame)
     pointerEventsSystem.onPointerDown(
       {
@@ -931,8 +905,8 @@ export class MainInstance {
         }
       },
       () => {
-        openNftDialog({
-          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        void openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601'
         })
       }
     )
@@ -940,14 +914,14 @@ export class MainInstance {
     // Fourth Floor NFT Picture Frame2///////////////////////////
     this.nftPictureFrame2 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame2, {
-      position: Vector3.create(0.5295686721801758, 25.883743286132812, 33.56391143798828),
+      position: Vector3.create(0.5295686721801758, 25.88374328613281, 33.56391143798828),
       rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000029563903809, 5.621730804443359, 0.45611265301704407),
       parent: this._scene
     })
     NftShape.create(this.nftPictureFrame2, {
-      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
-    });
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601' // Reemplaza con tu contrato e ID
+    })
     MeshCollider.setPlane(this.nftPictureFrame2)
     pointerEventsSystem.onPointerDown(
       {
@@ -958,24 +932,23 @@ export class MainInstance {
         }
       },
       () => {
-        openNftDialog({
-          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        void openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601'
         })
       }
     )
-    
 
     // Fourth Floor NFT Picture Frame3///////////////////////////
     this.nftPictureFrame3 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame3, {
-      position: Vector3.create(0.5295686721801758, 25.883743286132812, 29.06391143798828),
+      position: Vector3.create(0.5295686721801758, 25.88374328613281, 29.06391143798828),
       rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000032424926758, 5.621730804443359, 0.4561127722263336),
       parent: this._scene
     })
     NftShape.create(this.nftPictureFrame3, {
-      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
-    });
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601' // Reemplaza con tu contrato e ID
+    })
     MeshCollider.setPlane(this.nftPictureFrame3)
     pointerEventsSystem.onPointerDown(
       {
@@ -986,8 +959,8 @@ export class MainInstance {
         }
       },
       () => {
-        openNftDialog({
-          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        void openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601'
         })
       }
     )
@@ -995,14 +968,14 @@ export class MainInstance {
     // Fourth Floor NFT Picture Frame4///////////////////////////
     this.nftPictureFrame4 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame4, {
-      position: Vector3.create(0.5295686721801758, 25.883743286132812, 24.56391143798828),
+      position: Vector3.create(0.5295686721801758, 25.88374328613281, 24.56391143798828),
       rotation: Quaternion.fromEulerDegrees(0, 270, 0),
       scale: Vector3.create(6.000035285949707, 5.621730804443359, 0.45611289143562317),
       parent: this._scene
     })
     NftShape.create(this.nftPictureFrame4, {
-      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601', // Reemplaza con tu contrato e ID
-    });
+      urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601' // Reemplaza con tu contrato e ID
+    })
     MeshCollider.setPlane(this.nftPictureFrame4)
     pointerEventsSystem.onPointerDown(
       {
@@ -1013,8 +986,8 @@ export class MainInstance {
         }
       },
       () => {
-        openNftDialog({
-          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601',
+        void openNftDialog({
+          urn: 'urn:decentraland:ethereum:erc721:0x9808226ED04e92F9380DA67C5606354FAe5891b0:1601'
         })
       }
     )
@@ -1022,7 +995,7 @@ export class MainInstance {
     // Top Floor TriggerArea////////////////////////////////
     this.triggerArea8 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea8, {
-      position: Vector3.create(8.126971244812012, 28.760574340820312, 34.119720458984375),
+      position: Vector3.create(8.126971244812012, 28.76057434082032, 34.119720458984375),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(5.48532772064209, 0.2400498241186142, 8.471725463867188),
       parent: this._scene
@@ -1035,8 +1008,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream6).playing === false) {
           VideoPlayer.getMutable(this.videoStream6).playing = true
-        } else {
-          return
         }
       }
     )
@@ -1052,7 +1023,7 @@ export class MainInstance {
     MeshCollider.setPlane(this.videoStream6)
     MeshRenderer.setPlane(this.videoStream6)
     VideoPlayer.create(this.videoStream6, {
-      src: videoStream_src_top_floor,
+      src: videoStreamFloor5Src,
       playing: false
     })
     const videoTexture6 = Material.Texture.Video({ videoPlayerEntity: this.videoStream6 })
@@ -1070,8 +1041,6 @@ export class MainInstance {
       () => {
         if (VideoPlayer.get(this.videoStream6).playing === false) {
           VideoPlayer.getMutable(this.videoStream6).playing = true
-        } else {
-          return
         }
       }
     )
@@ -1089,16 +1058,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofirstfloorbutton, { src: this.floor_button_1 })
-    const tofirstfloorbutton_collider = engine.addEntity()
-    Transform.create(tofirstfloorbutton_collider, {
+    const tofirstfloorbuttonCollider = engine.addEntity()
+    Transform.create(tofirstfloorbuttonCollider, {
       position: Vector3.create(15.23768424987793, 1.6894843578338623, 23.796602249145508),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofirstfloorbutton_collider)
+    MeshCollider.setBox(tofirstfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofirstfloorbutton_collider,
+        entity: tofirstfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Current Floor'
@@ -1118,16 +1087,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tosecondfloorbutton, { src: this.floor_button_2 })
-    const tosecondfloorbutton_collider = engine.addEntity()
-    Transform.create(tosecondfloorbutton_collider, {
+    const tosecondfloorbuttonCollider = engine.addEntity()
+    Transform.create(tosecondfloorbuttonCollider, {
       position: Vector3.create(15.227154731750488, 1.9373252391815186, 23.43264389038086),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tosecondfloorbutton_collider)
+    MeshCollider.setBox(tosecondfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tosecondfloorbutton_collider,
+        entity: tosecondfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub'
@@ -1147,16 +1116,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tothirdfloorbutton, { src: this.floor_button_3 })
-    const tothirdfloorbutton_collider = engine.addEntity()
-    Transform.create(tothirdfloorbutton_collider, {
+    const tothirdfloorbuttonCollider = engine.addEntity()
+    Transform.create(tothirdfloorbuttonCollider, {
       position: Vector3.create(15.239447593688965, 1.7488524913787842, 23.079757690429688),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tothirdfloorbutton_collider)
+    MeshCollider.setBox(tothirdfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tothirdfloorbutton_collider,
+        entity: tothirdfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub VIP'
@@ -1176,16 +1145,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofourthfloorbutton, { src: this.floor_button_4 })
-    const tofourthfloorbutton_collider = engine.addEntity()
-    Transform.create(tofourthfloorbutton_collider, {
+    const tofourthfloorbuttonCollider = engine.addEntity()
+    Transform.create(tofourthfloorbuttonCollider, {
       position: Vector3.create(15.241415023803711, 1.337921142578125, 23.0618896484375),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofourthfloorbutton_collider)
+    MeshCollider.setBox(tofourthfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofourthfloorbutton_collider,
+        entity: tofourthfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'NFT Gallery'
@@ -1199,22 +1168,22 @@ export class MainInstance {
     // Ground Floor 5th loorbtn......................
     this.tofifthfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton, {
-      position: Vector3.create(15.242955207824707, 1.1119731664657593, 23.432022094726562),
+      position: Vector3.create(15.242955207824707, 1.1119731664657593, 23.43202209472656),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(1, 1, 1),
       parent: this._scene
     })
     GltfContainer.create(this.tofifthfloorbutton, { src: this.floor_button_5 })
-    const tofifthfloorbutton_collider = engine.addEntity()
-    Transform.create(tofifthfloorbutton_collider, {
-      position: Vector3.create(15.242955207824707, 1.1119731664657593, 23.432022094726562),
+    const tofifthfloorbuttonCollider = engine.addEntity()
+    Transform.create(tofifthfloorbuttonCollider, {
+      position: Vector3.create(15.242955207824707, 1.1119731664657593, 23.43202209472656),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofifthfloorbutton_collider)
+    MeshCollider.setBox(tofifthfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofifthfloorbutton_collider,
+        entity: tofifthfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'UnderConstruction'
@@ -1234,16 +1203,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.totopfloorbutton, { src: this.floor_button_6 })
-    const totopfloorbutton_collider = engine.addEntity()
-    Transform.create(totopfloorbutton_collider, {
+    const totopfloorbuttonCollider = engine.addEntity()
+    Transform.create(totopfloorbuttonCollider, {
       position: Vector3.create(15.22166633605957, 1.30178964138031, 23.835508346557617),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(totopfloorbutton_collider)
+    MeshCollider.setBox(totopfloorbuttonCollider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: totopfloorbutton_collider,
+        entity: totopfloorbuttonCollider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'RoofTop Club'
@@ -1265,16 +1234,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofirstfloorbutton2, { src: this.floor_button_1 })
-    const tofirstfloorbutton2_collider = engine.addEntity()
-    Transform.create(tofirstfloorbutton2_collider, {
+    const tofirstfloorbutton2Collider = engine.addEntity()
+    Transform.create(tofirstfloorbutton2Collider, {
       position: Vector3.create(15.23768424987793, 11.706573486328125, 22.60639762878418),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofirstfloorbutton2_collider)
+    MeshCollider.setBox(tofirstfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofirstfloorbutton2_collider,
+        entity: tofirstfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Casino'
@@ -1296,16 +1265,16 @@ export class MainInstance {
     GltfContainer.create(this.tosecondfloorbutton2, {
       src: this.floor_button_2
     })
-    const tosecondfloorbutton2_collider = engine.addEntity()
-    Transform.create(tosecondfloorbutton2_collider, {
+    const tosecondfloorbutton2Collider = engine.addEntity()
+    Transform.create(tosecondfloorbutton2Collider, {
       position: Vector3.create(15.227154731750488, 11.954414367675781, 22.24243927001953),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tosecondfloorbutton2_collider)
+    MeshCollider.setBox(tosecondfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tosecondfloorbutton2_collider,
+        entity: tosecondfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Current Floor'
@@ -1325,16 +1294,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tothirdfloorbutton2, { src: this.floor_button_3 })
-    const tothirdfloorbutton2_collider = engine.addEntity()
-    Transform.create(tothirdfloorbutton2_collider, {
+    const tothirdfloorbutton2Collider = engine.addEntity()
+    Transform.create(tothirdfloorbutton2Collider, {
       position: Vector3.create(15.239447593688965, 11.765941619873047, 21.88955307006836),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tothirdfloorbutton2_collider)
+    MeshCollider.setBox(tothirdfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tothirdfloorbutton2_collider,
+        entity: tothirdfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub VIP'
@@ -1355,16 +1324,16 @@ export class MainInstance {
     GltfContainer.create(this.tofourthfloorbutton2, {
       src: this.floor_button_4
     })
-    const tofourthfloorbutton2_collider = engine.addEntity()
-    Transform.create(tofourthfloorbutton2_collider, {
+    const tofourthfloorbutton2Collider = engine.addEntity()
+    Transform.create(tofourthfloorbutton2Collider, {
       position: Vector3.create(15.241415023803711, 11.355010032653809, 21.871685028076172),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofourthfloorbutton2_collider)
+    MeshCollider.setBox(tofourthfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofourthfloorbutton2_collider,
+        entity: tofourthfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'NFT Gallery'
@@ -1383,16 +1352,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofifthfloorbutton2, { src: this.floor_button_5 })
-    const tofifthfloorbutton2_collider = engine.addEntity()
-    Transform.create(tofifthfloorbutton2_collider, {
+    const tofifthfloorbutton2Collider = engine.addEntity()
+    Transform.create(tofifthfloorbutton2Collider, {
       position: Vector3.create(15.242955207824707, 11.12906265258789, 22.241817474365234),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofifthfloorbutton2_collider)
+    MeshCollider.setBox(tofifthfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofifthfloorbutton2_collider,
+        entity: tofifthfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'UnderConstruction'
@@ -1412,16 +1381,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.totopfloorbutton2, { src: this.floor_button_6 })
-    const totopfloorbutton2_collider = engine.addEntity()
-    Transform.create(totopfloorbutton2_collider, {
+    const totopfloorbutton2Collider = engine.addEntity()
+    Transform.create(totopfloorbutton2Collider, {
       position: Vector3.create(15.22166633605957, 11.318879127502441, 22.64530372619629),
       rotation: Quaternion.create(0, 0, 0, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(totopfloorbutton2_collider)
+    MeshCollider.setBox(totopfloorbutton2Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: totopfloorbutton2_collider,
+        entity: totopfloorbutton2Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'RoofTop Club'
@@ -1443,16 +1412,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofirstfloorbutton3, { src: this.floor_button_1 })
-    const tofirstfloorbutton3_collider = engine.addEntity()
-    Transform.create(tofirstfloorbutton3_collider, {
+    const tofirstfloorbutton3Collider = engine.addEntity()
+    Transform.create(tofirstfloorbutton3Collider, {
       position: Vector3.create(0.7356014251708984, 18.60797882080078, 6.383121490478516),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofirstfloorbutton3_collider)
+    MeshCollider.setBox(tofirstfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofirstfloorbutton3_collider,
+        entity: tofirstfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Casino'
@@ -1474,16 +1443,16 @@ export class MainInstance {
     GltfContainer.create(this.tosecondfloorbutton3, {
       src: this.floor_button_2
     })
-    const tosecondfloorbutton3_collider = engine.addEntity()
-    Transform.create(tosecondfloorbutton3_collider, {
+    const tosecondfloorbutton3Collider = engine.addEntity()
+    Transform.create(tosecondfloorbutton3Collider, {
       position: Vector3.create(0.7461305260658264, 18.855819702148438, 6.747079372406006),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tosecondfloorbutton3_collider)
+    MeshCollider.setBox(tosecondfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tosecondfloorbutton3_collider,
+        entity: tosecondfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub'
@@ -1503,16 +1472,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tothirdfloorbutton3, { src: this.floor_button_3 })
-    const tothirdfloorbutton3_collider = engine.addEntity()
-    Transform.create(tothirdfloorbutton3_collider, {
+    const tothirdfloorbutton3Collider = engine.addEntity()
+    Transform.create(tothirdfloorbutton3Collider, {
       position: Vector3.create(0.7338376045227051, 18.667346954345703, 7.099966049194336),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tothirdfloorbutton3_collider)
+    MeshCollider.setBox(tothirdfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tothirdfloorbutton3_collider,
+        entity: tothirdfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Current Floor'
@@ -1534,16 +1503,16 @@ export class MainInstance {
     GltfContainer.create(this.tofourthfloorbutton3, {
       src: this.floor_button_4
     })
-    const tofourthfloorbutton3_collider = engine.addEntity()
-    Transform.create(tofourthfloorbutton3_collider, {
+    const tofourthfloorbutton3Collider = engine.addEntity()
+    Transform.create(tofourthfloorbutton3Collider, {
       position: Vector3.create(0.7318701148033142, 18.25641441345215, 7.117834091186523),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofourthfloorbutton3_collider)
+    MeshCollider.setBox(tofourthfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofourthfloorbutton3_collider,
+        entity: tofourthfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'NFT Gallery'
@@ -1563,16 +1532,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofifthfloorbutton3, { src: this.floor_button_5 })
-    const tofifthfloorbutton3_collider = engine.addEntity()
-    Transform.create(tofifthfloorbutton3_collider, {
+    const tofifthfloorbutton3Collider = engine.addEntity()
+    Transform.create(tofifthfloorbutton3Collider, {
       position: Vector3.create(0.7303299307823181, 18.030467987060547, 6.747701644897461),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofifthfloorbutton3_collider)
+    MeshCollider.setBox(tofifthfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofifthfloorbutton3_collider,
+        entity: tofifthfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'UnderConstruction'
@@ -1592,16 +1561,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.totopfloorbutton3, { src: this.floor_button_6 })
-    const totopfloorbutton3_collider = engine.addEntity()
-    Transform.create(totopfloorbutton3_collider, {
+    const totopfloorbutton3Collider = engine.addEntity()
+    Transform.create(totopfloorbutton3Collider, {
       position: Vector3.create(0.7516188621520996, 18.220285415649414, 6.344215393066406),
       rotation: Quaternion.create(-2.8469448630827733e-15, 1, -1.1920928955078125e-7, -2.2351741790771484e-8),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(totopfloorbutton3_collider)
+    MeshCollider.setBox(totopfloorbutton3Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: totopfloorbutton3_collider,
+        entity: totopfloorbutton3Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'RoofTop Club'
@@ -1623,16 +1592,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofirstfloorbutton4, { src: this.floor_button_1 })
-    const tofirstfloorbutton4_collider = engine.addEntity()
-    Transform.create(tofirstfloorbutton4_collider, {
+    const tofirstfloorbutton4Collider = engine.addEntity()
+    Transform.create(tofirstfloorbutton4Collider, {
       position: Vector3.create(15.349342346191406, 24.92435073852539, 24.03135871887207),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofirstfloorbutton4_collider)
+    MeshCollider.setBox(tofirstfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofirstfloorbutton4_collider,
+        entity: tofirstfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Casino'
@@ -1654,16 +1623,16 @@ export class MainInstance {
     GltfContainer.create(this.tosecondfloorbutton4, {
       src: this.floor_button_2
     })
-    const tosecondfloorbutton4_collider = engine.addEntity()
-    Transform.create(tosecondfloorbutton4_collider, {
+    const tosecondfloorbutton4Collider = engine.addEntity()
+    Transform.create(tosecondfloorbutton4Collider, {
       position: Vector3.create(15.338813781738281, 25.172191619873047, 23.667400360107422),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tosecondfloorbutton4_collider)
+    MeshCollider.setBox(tosecondfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tosecondfloorbutton4_collider,
+        entity: tosecondfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub'
@@ -1676,22 +1645,22 @@ export class MainInstance {
     // Fourth Floor 3rd floorbtn......................
     this.tothirdfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton4, {
-      position: Vector3.create(15.351106643676758, 24.983718872070312, 23.314512252807617),
+      position: Vector3.create(15.351106643676758, 24.98371887207031, 23.314512252807617),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(1.0000016689300537, 1, 1.0000016689300537),
       parent: this._scene
     })
     GltfContainer.create(this.tothirdfloorbutton4, { src: this.floor_button_3 })
-    const tothirdfloorbutton4_collider = engine.addEntity()
-    Transform.create(tothirdfloorbutton4_collider, {
-      position: Vector3.create(15.351106643676758, 24.983718872070312, 23.314512252807617),
+    const tothirdfloorbutton4Collider = engine.addEntity()
+    Transform.create(tothirdfloorbutton4Collider, {
+      position: Vector3.create(15.351106643676758, 24.98371887207032, 23.314512252807617),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tothirdfloorbutton4_collider)
+    MeshCollider.setBox(tothirdfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tothirdfloorbutton4_collider,
+        entity: tothirdfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub VIP'
@@ -1713,16 +1682,16 @@ export class MainInstance {
     GltfContainer.create(this.tofourthfloorbutton4, {
       src: this.floor_button_4
     })
-    const tofourthfloorbutton4_collider = engine.addEntity()
-    Transform.create(tofourthfloorbutton4_collider, {
+    const tofourthfloorbutton4Collider = engine.addEntity()
+    Transform.create(tofourthfloorbutton4Collider, {
       position: Vector3.create(15.353073120117188, 24.572786331176758, 23.29664421081543),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofourthfloorbutton4_collider)
+    MeshCollider.setBox(tofourthfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofourthfloorbutton4_collider,
+        entity: tofourthfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Current Floor'
@@ -1742,16 +1711,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofifthfloorbutton4, { src: this.floor_button_5 })
-    const tofifthfloorbutton4_collider = engine.addEntity()
-    Transform.create(tofifthfloorbutton4_collider, {
+    const tofifthfloorbutton4Collider = engine.addEntity()
+    Transform.create(tofifthfloorbutton4Collider, {
       position: Vector3.create(15.3546142578125, 24.346839904785156, 23.666776657104492),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofifthfloorbutton4_collider)
+    MeshCollider.setBox(tofifthfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofifthfloorbutton4_collider,
+        entity: tofifthfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'UnderConstruction'
@@ -1771,16 +1740,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.totopfloorbutton4, { src: this.floor_button_6 })
-    const totopfloorbutton4_collider = engine.addEntity()
-    Transform.create(totopfloorbutton4_collider, {
+    const totopfloorbutton4Collider = engine.addEntity()
+    Transform.create(totopfloorbutton4Collider, {
       position: Vector3.create(15.333324432373047, 24.536657333374023, 24.07026481628418),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(totopfloorbutton4_collider)
+    MeshCollider.setBox(totopfloorbutton4Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: totopfloorbutton4_collider,
+        entity: totopfloorbutton4Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'RoofTop Club'
@@ -1802,16 +1771,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofirstfloorbutton5, { src: this.floor_button_1 })
-    const tofirstfloorbutton5_collider = engine.addEntity()
-    Transform.create(tofirstfloorbutton5_collider, {
+    const tofirstfloorbutton5Collider = engine.addEntity()
+    Transform.create(tofirstfloorbutton5Collider, {
       position: Vector3.create(14.98353385925293, 30.0623836517334, 23.698261260986328),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofirstfloorbutton5_collider)
+    MeshCollider.setBox(tofirstfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofirstfloorbutton5_collider,
+        entity: tofirstfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Casino'
@@ -1833,16 +1802,16 @@ export class MainInstance {
     GltfContainer.create(this.tosecondfloorbutton5, {
       src: this.floor_button_2
     })
-    const tosecondfloorbutton5_collider = engine.addEntity()
-    Transform.create(tosecondfloorbutton5_collider, {
+    const tosecondfloorbutton5Collider = engine.addEntity()
+    Transform.create(tosecondfloorbutton5Collider, {
       position: Vector3.create(14.973005294799805, 30.310224533081055, 23.33430290222168),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tosecondfloorbutton5_collider)
+    MeshCollider.setBox(tosecondfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tosecondfloorbutton5_collider,
+        entity: tosecondfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub'
@@ -1862,16 +1831,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tothirdfloorbutton5, { src: this.floor_button_3 })
-    const tothirdfloorbutton5_collider = engine.addEntity()
-    Transform.create(tothirdfloorbutton5_collider, {
+    const tothirdfloorbutton5Collider = engine.addEntity()
+    Transform.create(tothirdfloorbutton5Collider, {
       position: Vector3.create(14.985298156738281, 30.12175178527832, 22.981414794921875),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tothirdfloorbutton5_collider)
+    MeshCollider.setBox(tothirdfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tothirdfloorbutton5_collider,
+        entity: tothirdfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'StripClub VIP'
@@ -1893,16 +1862,16 @@ export class MainInstance {
     GltfContainer.create(this.tofourthfloorbutton5, {
       src: this.floor_button_4
     })
-    const tofourthfloorbutton5_collider = engine.addEntity()
-    Transform.create(tofourthfloorbutton5_collider, {
+    const tofourthfloorbutton5Collider = engine.addEntity()
+    Transform.create(tofourthfloorbutton5Collider, {
       position: Vector3.create(14.987264633178711, 29.710819244384766, 22.963546752929688),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofourthfloorbutton5_collider)
+    MeshCollider.setBox(tofourthfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofourthfloorbutton5_collider,
+        entity: tofourthfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'NFT Gallery'
@@ -1922,16 +1891,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.tofifthfloorbutton5, { src: this.floor_button_5 })
-    const tofifthfloorbutton5_collider = engine.addEntity()
-    Transform.create(tofifthfloorbutton5_collider, {
+    const tofifthfloorbutton5Collider = engine.addEntity()
+    Transform.create(tofifthfloorbutton5Collider, {
       position: Vector3.create(14.988805770874023, 29.484872817993164, 23.33367919921875),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(tofifthfloorbutton5_collider)
+    MeshCollider.setBox(tofifthfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: tofifthfloorbutton5_collider,
+        entity: tofifthfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'UnderConstruction'
@@ -1951,16 +1920,16 @@ export class MainInstance {
       parent: this._scene
     })
     GltfContainer.create(this.totopfloorbutton5, { src: this.floor_button_6 })
-    const totopfloorbutton5_collider = engine.addEntity()
-    Transform.create(totopfloorbutton5_collider, {
+    const totopfloorbutton5Collider = engine.addEntity()
+    Transform.create(totopfloorbutton5Collider, {
       position: Vector3.create(14.96751594543457, 29.67469024658203, 23.737167358398438),
       rotation: Quaternion.create(1.3612528428953458e-14, -1.1920927533992653e-7, -1.173659524330694e-14, 1),
       scale: Vector3.create(0.2, 0.2, 0.2)
     })
-    MeshCollider.setBox(totopfloorbutton5_collider)
+    MeshCollider.setBox(totopfloorbutton5Collider)
     pointerEventsSystem.onPointerDown(
       {
-        entity: totopfloorbutton5_collider,
+        entity: totopfloorbutton5Collider,
         opts: {
           button: InputAction.IA_POINTER,
           hoverText: 'Current Floor'
@@ -2172,10 +2141,10 @@ export class MainInstance {
     })
   }
 
-  elevator(floor: number) {
+  elevator(floor: number): void {
     switch (floor) {
       case 1:
-        movePlayerTo({
+        void movePlayerTo({
           newRelativePosition: Vector3.create(12.43, 0.88, 24.14)
         })
         break
@@ -2183,7 +2152,7 @@ export class MainInstance {
         if (!payMana) {
           accessSecondFloor()
         } else if (payMana) {
-          movePlayerTo({
+          void movePlayerTo({
             newRelativePosition: Vector3.create(12.43, 10.92, 24.14)
           })
         } else {
@@ -2194,7 +2163,7 @@ export class MainInstance {
         if (!payMana2) {
           accessThirdFloor()
         } else if (payMana2) {
-          movePlayerTo({
+          void movePlayerTo({
             newRelativePosition: Vector3.create(4.01, 18.08, 6.51)
           })
         } else {
@@ -2202,7 +2171,7 @@ export class MainInstance {
         }
         break
       case 4:
-        movePlayerTo({
+        void movePlayerTo({
           newRelativePosition: Vector3.create(14.25, 24.56, 23.9)
         })
         break
@@ -2210,7 +2179,7 @@ export class MainInstance {
         // under construction
         break
       case 6:
-        movePlayerTo({
+        void movePlayerTo({
           newRelativePosition: Vector3.create(12.43, 28.92, 24.14)
         })
         break
