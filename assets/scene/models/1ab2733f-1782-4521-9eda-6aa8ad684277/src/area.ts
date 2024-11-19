@@ -21,9 +21,7 @@ export function getGlobalPosition(subject: IEntity): Vector3 {
       const parentRotation = parentEntity.hasComponent(Transform)
         ? parentEntity.getComponent(Transform).rotation
         : Quaternion.Identity
-      return getGlobalPosition(parentEntity).add(
-        entityPosition.rotate(parentRotation)
-      )
+      return getGlobalPosition(parentEntity).add(entityPosition.rotate(parentRotation))
     }
   }
 
@@ -42,25 +40,12 @@ export class TriggerableAreaSystem implements ISystem {
       const position = getGlobalPosition(entity)
 
       if (triggerableArea.enabled) {
-        const radius = Math.max(
-          Math.max(Math.abs(scale.x), Math.abs(scale.z)),
-          Math.abs(scale.y)
-        )
-        const distance = Vector3.DistanceSquared(
-          position,
-          Camera.instance.position
-        )
-        if (
-          distance >
-          (radius + Camera.instance.playerHeight) *
-            (radius + Camera.instance.playerHeight)
-        )
-          continue
+        const radius = Math.max(Math.max(Math.abs(scale.x), Math.abs(scale.z)), Math.abs(scale.y))
+        const distance = Vector3.DistanceSquared(position, Camera.instance.position)
+        if (distance > (radius + Camera.instance.playerHeight) * (radius + Camera.instance.playerHeight)) continue
 
         const transformCache = `${position} ${rotation} ${scale}`
-        const inverseMatrix = Matrix.Invert(
-          Matrix.Compose(Vector3.One(), rotation, position)
-        )
+        const inverseMatrix = Matrix.Invert(Matrix.Compose(Vector3.One(), rotation, position))
         const playerPos = Camera.instance.position.clone()
 
         if (transformCache !== triggerableArea._transformCache) {
@@ -69,19 +54,11 @@ export class TriggerableAreaSystem implements ISystem {
         }
 
         // Feet
-        const inversePoint1 = playerPos.subtractFromFloats(
-          0,
-          Camera.instance.playerHeight,
-          0
-        )
+        const inversePoint1 = playerPos.subtractFromFloats(0, Camera.instance.playerHeight, 0)
         inversePoint1.applyMatrix4(inverseMatrix)
 
         // Mid body
-        const inversePoint2 = playerPos.subtractFromFloats(
-          0,
-          Camera.instance.playerHeight / 2,
-          0
-        )
+        const inversePoint2 = playerPos.subtractFromFloats(0, Camera.instance.playerHeight / 2, 0)
         inversePoint2.applyMatrix4(inverseMatrix)
 
         // Head
