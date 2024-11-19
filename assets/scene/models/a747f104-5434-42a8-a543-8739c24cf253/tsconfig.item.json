@@ -1,8 +1,5 @@
 {
-  "include": [
-    "src/item.ts",
-    "./node_modules/decentraland-builder-scripts/types.d.ts"
-  ],
+  "include": ["src/item.ts", "./node_modules/decentraland-builder-scripts/types.d.ts"],
   "compilerOptions": {
     "outFile": "bin/item.js",
     "sourceMap": false,

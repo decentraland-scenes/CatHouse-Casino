@@ -17,4 +17,3 @@ Alternatively, you can use the command line. Inside this scene root directory ru
 ```
 npm run start -- --web3
 ```
-

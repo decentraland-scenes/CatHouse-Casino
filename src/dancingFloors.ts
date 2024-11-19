@@ -1,13 +1,13 @@
-import { engine, InputAction, inputSystem, Material, MeshRenderer, PointerEventType, Transform } from '@dcl/sdk/ecs'
-import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
-import { movePlayerTo, triggerEmote } from '~system/RestrictedActions'
-import { GameController } from './controllers/game.controller'
 import * as utils from '@dcl-sdk/utils'
+import { engine, Material, MeshRenderer, Transform } from '@dcl/sdk/ecs'
+import { Color4, type Quaternion, type Vector3 } from '@dcl/sdk/math'
+import { triggerEmote } from '~system/RestrictedActions'
+import { type GameController } from './controllers/game.controller'
 
-////// DEBUG FLAG - Set to true to view all dance areas
-const DEBUG_FLAG = false
+/// /// DEBUG FLAG - Set to true to view all dance areas
+// const DEBUG_FLAG = false
 
-///// This system acts on the danceAreas defined above
+/// // This system acts on the danceAreas defined above
 
 export class DanceSystem {
   length = 11

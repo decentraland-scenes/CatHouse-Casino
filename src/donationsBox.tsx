@@ -1,25 +1,24 @@
 import {
   engine,
-  Entity,
+  type Entity,
   executeTask,
   GltfContainer,
   InputAction,
   MeshCollider,
   pointerEventsSystem,
-  QuaternionType,
+  type QuaternionType,
   Transform,
   UiCanvasInformation,
-  Vector3Type
+  type Vector3Type
 } from '@dcl/sdk/ecs'
-import { GameController } from './controllers/game.controller'
+import { type GameController } from './controllers/game.controller'
 import { Input, ReactEcs, UiEntity } from '@dcl/sdk/react-ecs'
 import { Color4, Vector3 } from '@dcl/sdk/math'
-import { getUvs, Sprite } from './utils'
+import { getUvs, type Sprite } from './utils'
 import { createEthereumProvider } from '@dcl/sdk/ethereum-provider'
 import { getPlayer } from '@dcl/sdk/src/players'
 import * as EthConnect from 'eth-connect'
 import { abi } from './abi/abi'
-import { payMana } from './mana'
 
 export class DonationsBox {
   entity: Entity
@@ -98,24 +97,27 @@ export class DonationsBox {
       h: 74
     }
   }
-  openUI() {
+
+  openUI(): void {
     this.background_visible = true
     this.donationInput_placeholder = this.toDonate.toString()
     this.donationInput_value = this.toDonate.toString()
   }
 
-  closeUI() {
+  closeUI(): void {
     this.background_visible = false
   }
 
-  async makeDonation(donation: number) {
+  async makeDonation(donation: number): Promise<void> {
     console.log('Making a donation of: ' + donation)
     executeTask(async () => {
       try {
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         const provider = await createEthereumProvider()
         const requestManager = new EthConnect.RequestManager(provider)
         const factory = new EthConnect.ContractFactory(requestManager, abi)
         const contract = (await factory.at('0xe7334cf43532423bfd163b32aCc0D72922132226')) as any
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         const player = await getPlayer()
         const address = player?.userId
         const res = await contract.setBalance(address, donation, {
@@ -174,7 +176,7 @@ export class DonationsBox {
               position: { top: '34%', left: '39%' }
             }}
           ></Input>
-          {/* accept button*/}
+          {/* accept button */}
           <UiEntity
             uiTransform={{
               positionType: 'absolute',
@@ -189,11 +191,12 @@ export class DonationsBox {
               texture: { src: this.acceptButton.atlasSrc }
             }}
             onMouseDown={() => {
+              // eslint-disable-next-line @typescript-eslint/no-floating-promises
               this.makeDonation(this.toDonate)
               this.closeUI()
             }}
           ></UiEntity>
-          {/* cancel button*/}
+          {/* cancel button */}
           <UiEntity
             uiTransform={{
               positionType: 'absolute',

@@ -1,11 +1,4 @@
-import {
-  TweenSystem,
-  Tweenable,
-  Tween,
-  Syncable,
-  TweenType,
-  CurveType,
-} from './tween'
+import { TweenSystem, Tweenable, Tween, Syncable, TweenType, CurveType } from './tween'
 import { setTimeout, DelaySystem } from './delay'
 import { Animated, AnimType } from './animation'
 
@@ -62,10 +55,7 @@ const syncv = (vector: Vector3, values: [number, number, number]) => {
   vector.set(x, y, z)
 }
 
-const syncq = (
-  quaternion: Quaternion,
-  values: [number, number, number, number]
-) => {
+const syncq = (quaternion: Quaternion, values: [number, number, number, number]) => {
   const [x, y, z, w] = values
   quaternion.set(x, y, z, w)
 }
@@ -134,7 +124,7 @@ export default class Tools implements IScript<Props> {
           channel,
           origin,
           sender,
-          timestamp: currentTime,
+          timestamp: currentTime
         })
         entity.addComponentOrReplace(tweenable)
         entity.addComponentOrReplace(new Syncable())
@@ -161,15 +151,14 @@ export default class Tools implements IScript<Props> {
             return
           }
         }
-        const origin = entity.getComponent(Transform).rotation.clone()
-          .eulerAngles
+        const origin = entity.getComponent(Transform).rotation.clone().eulerAngles
         const tweenable = new Tweenable({
           ...tween,
           type: 'rotate',
           channel,
           origin,
           sender,
-          timestamp: currentTime,
+          timestamp: currentTime
         })
         entity.addComponentOrReplace(tweenable)
         entity.addComponentOrReplace(new Syncable())
@@ -203,7 +192,7 @@ export default class Tools implements IScript<Props> {
           channel,
           origin,
           sender,
-          timestamp: currentTime,
+          timestamp: currentTime
         })
         entity.addComponentOrReplace(tweenable)
         entity.addComponentOrReplace(new Syncable())
@@ -259,7 +248,7 @@ export default class Tools implements IScript<Props> {
               loop: loop,
               channel,
               sender,
-              timestamp: currentTime,
+              timestamp: currentTime
             })
 
             entity.addComponentOrReplace(animated)
@@ -308,10 +297,7 @@ export default class Tools implements IScript<Props> {
     channel.handleAction<DelayValues>('interval', (action) => {
       const { timeout, onTimeout } = action.values
       if (action.sender === channel.id) {
-        const intervalAction = channel.createAction<DelayValues>(
-          action.actionId,
-          action.values
-        )
+        const intervalAction = channel.createAction<DelayValues>(action.actionId, action.values)
         channel.sendActions(onTimeout)
         setTimeout(() => channel.sendActions([intervalAction]), timeout * 1000)
       }
@@ -352,7 +338,7 @@ export default class Tools implements IScript<Props> {
           if (tween) {
             const tweenable = new Tweenable({
               ...tween,
-              channel,
+              channel
             })
 
             entity.addComponentOrReplace(tweenable)
@@ -360,7 +346,7 @@ export default class Tools implements IScript<Props> {
           if (anim) {
             const animated = new Animated({
               ...anim,
-              channel,
+              channel
             })
             entity.addComponentOrReplace(animated)
             let animator = new Animator()
@@ -394,19 +380,10 @@ export default class Tools implements IScript<Props> {
         const syncEntity: SyncEntity = {
           entityName: entity.name,
           transform: {
-            position: [
-              transform.position.x,
-              transform.position.y,
-              transform.position.z,
-            ],
-            rotation: [
-              transform.rotation.x,
-              transform.rotation.y,
-              transform.rotation.z,
-              transform.rotation.w,
-            ],
-            scale: [transform.scale.x, transform.scale.y, transform.scale.z],
-          },
+            position: [transform.position.x, transform.position.y, transform.position.z],
+            rotation: [transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w],
+            scale: [transform.scale.x, transform.scale.y, transform.scale.z]
+          }
         }
         if (entity.hasComponent(Tweenable)) {
           const { channel: _, ...tween } = entity.getComponent(Tweenable)
