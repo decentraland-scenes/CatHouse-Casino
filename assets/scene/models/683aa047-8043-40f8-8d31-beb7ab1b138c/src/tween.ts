@@ -59,9 +59,7 @@ export class Tweenable {
   }
 }
 
-const offsetFactory = (tweenable: Tweenable, relative: Vector3) => (
-  axis: 'x' | 'y' | 'z'
-) => {
+const offsetFactory = (tweenable: Tweenable, relative: Vector3) => (axis: 'x' | 'y' | 'z') => {
   const value = tweenable[axis]
   const offset = relative[axis]
 
@@ -86,10 +84,7 @@ export class TweenSystem {
 
           if (tweenable.transition >= 0 && tweenable.transition < 1) {
             tweenable.transition += dt * speed
-            let easingIndex = easingConverter(
-              tweenable.transition,
-              tweenable.curve
-            )
+            let easingIndex = easingConverter(tweenable.transition, tweenable.curve)
             transform.position.copyFrom(Vector3.Lerp(start, end, easingIndex))
           } else if (tweenable.transition >= 1) {
             tweenable.transition = -1
@@ -101,24 +96,13 @@ export class TweenSystem {
           break
         }
         case 'rotate': {
-          const start = Quaternion.Euler(
-            tweenable.origin.x,
-            tweenable.origin.y,
-            tweenable.origin.z
-          )
-          const end = start.multiply(
-            Quaternion.Euler(tweenable.x, tweenable.y, tweenable.z)
-          )
+          const start = Quaternion.Euler(tweenable.origin.x, tweenable.origin.y, tweenable.origin.z)
+          const end = start.multiply(Quaternion.Euler(tweenable.x, tweenable.y, tweenable.z))
 
           if (tweenable.transition >= 0 && tweenable.transition < 1) {
             tweenable.transition += dt * speed
-            let easingIndex = easingConverter(
-              tweenable.transition,
-              tweenable.curve
-            )
-            transform.rotation.copyFrom(
-              Quaternion.Slerp(start, end, easingIndex)
-            )
+            let easingIndex = easingConverter(tweenable.transition, tweenable.curve)
+            transform.rotation.copyFrom(Quaternion.Slerp(start, end, easingIndex))
           } else if (tweenable.transition >= 1) {
             tweenable.transition = -1
             transform.rotation.copyFrom(end)
@@ -136,10 +120,7 @@ export class TweenSystem {
 
           if (tweenable.transition >= 0 && tweenable.transition < 1) {
             tweenable.transition += dt * speed
-            let easingIndex = easingConverter(
-              tweenable.transition,
-              tweenable.curve
-            )
+            let easingIndex = easingConverter(tweenable.transition, tweenable.curve)
             transform.scale.copyFrom(Vector3.Lerp(start, end, easingIndex))
           } else if (tweenable.transition >= 1) {
             tweenable.transition = -1
@@ -181,7 +162,7 @@ export enum CurveType {
 
   EASEINBOUNCE = 'easeinbounce',
   EASEOUTEBOUNCE = 'easeoutbounce',
-  EASEINOUTBOUNCE = 'easeinoutbounce',
+  EASEINOUTBOUNCE = 'easeinoutbounce'
 }
 
 export function easingConverter(x: number, curveType: CurveType) {
@@ -224,32 +205,18 @@ export function easingConverter(x: number, curveType: CurveType) {
       return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
       break
     case CurveType.EASEINOUTEXPO:
-      return x === 0
-        ? 0
-        : x === 1
-        ? 1
-        : x < 0.5
-        ? Math.pow(2, 20 * x - 10) / 2
-        : (2 - Math.pow(2, -20 * x + 10)) / 2
+      return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2
       break
 
     case CurveType.EASEINELASTIC:
       const c4 = (2 * Math.PI) / 3
 
-      return x === 0
-        ? 0
-        : x === 1
-        ? 1
-        : -Math.pow(2, 10 * x - 10) * Math.sin((x * 10 - 10.75) * c4)
+      return x === 0 ? 0 : x === 1 ? 1 : -Math.pow(2, 10 * x - 10) * Math.sin((x * 10 - 10.75) * c4)
       break
     case CurveType.EASEOUTELASTIC:
       const c5 = (2 * Math.PI) / 3
 
-      return x === 0
-        ? 0
-        : x === 1
-        ? 1
-        : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c5) + 1
+      return x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c5) + 1
       break
 
     case CurveType.EASEINOUTELASTIC:

@@ -7,14 +7,16 @@ export class UiController {
   uiComponent: () => ReactEcs.JSX.Element[]
   constructor(gameController: GameController) {
     this.gameController = gameController
-    this.uiComponent = () => [NpcUtilsUi(),this.gameController.mainInstance.prompt.render(),
+    this.uiComponent = () => [
+      NpcUtilsUi(),
+      this.gameController.mainInstance.prompt.render(),
       this.gameController.mainInstance.tip.createDonationUI(),
       this.gameController.mainInstance.tip2.createDonationUI(),
       this.gameController.mainInstance.tip3.createDonationUI(),
       this.gameController.mainInstance.tip4.createDonationUI(),
       this.gameController.mainInstance.tip5.createDonationUI(),
       this.gameController.mainInstance.tip6.createDonationUI(),
-      this.gameController.mainInstance.tip7.createDonationUI(),
+      this.gameController.mainInstance.tip7.createDonationUI()
     ]
     ReactEcsRenderer.setUiRenderer(this.uiComponent)
   }

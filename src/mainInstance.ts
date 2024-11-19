@@ -16,7 +16,7 @@ import {
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
 import { movePlayerTo } from '~system/RestrictedActions'
-import { GameController } from './controllers/game.controller'
+import { type GameController } from './controllers/game.controller'
 import { guardCheckPoint, NPC } from './mainDoorAccess'
 import { closeDialogWindow, openDialogWindow } from 'dcl-npc-toolkit'
 import * as ui from 'dcl-ui-toolkit'
@@ -26,23 +26,29 @@ import { DanceArea } from './dancingFloors'
 import * as utils from '@dcl-sdk/utils'
 
 // TEST VIDEOS FOR STREAMING - REPLACE THEM WITH THE CUSTOM LINK
-const videoStream_src_ground = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_2_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_3_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_4_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_4b_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
-const videoStream_src_top_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_ground =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_2_floor =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_3_floor =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_4_floor =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_4b_floor =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_top_floor =
+  'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
 
 export class MainInstance {
   gameController: GameController
-  //Assets
-  private floor_button_1 = 'assets/scene/models/475aa992-b0e2-40ec-8d06-461292435964/1.glb'
-  private floor_button_2 = 'assets/scene/models/651dab77-35ec-49ef-8631-6063ec91893f/2.glb'
-  private floor_button_3 = 'assets/scene/models/cad17ca0-d83c-4ce1-ab5f-c1d5ead72295/3.glb'
-  private floor_button_4 = 'assets/scene/models/d4d7118a-b54d-45d8-992e-6669c8744eaa/4.glb'
-  private floor_button_5 = 'assets/scene/models/9b4c38e3-4a65-41db-a209-bce70a5cbf7a/5.glb'
-  private floor_button_6 = 'assets/scene/models/98f6cc0d-3e2c-4fc7-8b90-405914d08397/6.glb'
-  //entities
+  // Assets
+  private readonly floor_button_1 = 'assets/scene/models/475aa992-b0e2-40ec-8d06-461292435964/1.glb'
+  private readonly floor_button_2 = 'assets/scene/models/651dab77-35ec-49ef-8631-6063ec91893f/2.glb'
+  private readonly floor_button_3 = 'assets/scene/models/cad17ca0-d83c-4ce1-ab5f-c1d5ead72295/3.glb'
+  private readonly floor_button_4 = 'assets/scene/models/d4d7118a-b54d-45d8-992e-6669c8744eaa/4.glb'
+  private readonly floor_button_5 = 'assets/scene/models/9b4c38e3-4a65-41db-a209-bce70a5cbf7a/5.glb'
+  private readonly floor_button_6 = 'assets/scene/models/98f6cc0d-3e2c-4fc7-8b90-405914d08397/6.glb'
+  // entities
   private _scene = engine.addEntity()
   private entity = engine.addEntity()
   private entity2 = engine.addEntity()
@@ -117,7 +123,7 @@ export class MainInstance {
   private invisibleWall2 = engine.addEntity()
   private invisibleWall3 = engine.addEntity()
   private invisibleWall4 = engine.addEntity()
-  //Donation Boxes
+  // Donation Boxes
   tip: DonationsBox
   tip2: DonationsBox
   tip3: DonationsBox
@@ -125,7 +131,7 @@ export class MainInstance {
   tip5: DonationsBox
   tip6: DonationsBox
   tip7: DonationsBox
-  //Dance Areas
+  // Dance Areas
   danceArea_1: DanceArea
   danceArea_2: DanceArea
   danceArea_3: DanceArea
@@ -134,8 +140,8 @@ export class MainInstance {
   danceArea_6: DanceArea
   danceArea_7: DanceArea
   danceArea_8: DanceArea
-  //others
-  private clubGuard: NPC
+  // others
+  private readonly clubGuard: NPC
   public prompt: ui.FillInPrompt
   constructor(gameController: GameController) {
     this.gameController = gameController
@@ -156,7 +162,7 @@ export class MainInstance {
       title: "I'm going to need to see some ID",
       placeholder: 'Enter your Birth Year',
       onAccept: (e: string) => {
-        let submittedText: number = +e
+        const submittedText: number = +e
         if (submittedText <= 2002) {
           openDialogWindow(this.clubGuard.entity, guardCheckPoint, 'welcome')
           this.prompt.hide()
@@ -176,7 +182,7 @@ export class MainInstance {
         }
       }
     })
-    //Tip on 2nd Dance Floor Poles//////////////////////////
+    // Tip on 2nd Dance Floor Poles//////////////////////////
     this.tip = new DonationsBox(
       Vector3.create(7.55, 12, 32.9),
       Vector3.create(0.05, 0.05, 0.05),
@@ -233,7 +239,7 @@ export class MainInstance {
       10,
       this.gameController
     )
-    //Dance Areas
+    // Dance Areas
     this.danceArea_1 = new DanceArea(
       this.gameController,
       Vector3.create(7.91103458404541, 0.09260523319244385, 40.509727478027344),
@@ -289,42 +295,43 @@ export class MainInstance {
       const cmd3 = inputSystem.getInputCommand(InputAction.IA_LEFT, PointerEventType.PET_DOWN)
       const cmd4 = inputSystem.getInputCommand(InputAction.IA_RIGHT, PointerEventType.PET_DOWN)
       if (cmd || cmd2 || cmd3 || cmd4) {
-        if (this.danceArea_1.danceZone === true) {
+        if (this.danceArea_1.danceZone) {
           this.danceArea_1.danceSystem.dance()
         }
-        if (this.danceArea_2.danceZone === true) {
+        if (this.danceArea_2.danceZone) {
           this.danceArea_2.danceSystem.routine = 'all'
           this.danceArea_2.danceSystem.dance()
         }
-        if (this.danceArea_3.danceZone === true) {
+        if (this.danceArea_3.danceZone) {
           this.danceArea_3.danceSystem.routine = 'all'
           this.danceArea_3.danceSystem.dance()
         }
-        if (this.danceArea_4.danceZone === true) {
+        if (this.danceArea_4.danceZone) {
           this.danceArea_4.danceSystem.routine = 'all'
           this.danceArea_4.danceSystem.dance()
         }
-        if (this.danceArea_5.danceZone === true) {
+        if (this.danceArea_5.danceZone) {
           this.danceArea_5.danceSystem.routine = 'all'
           this.danceArea_5.danceSystem.dance()
         }
-        if (this.danceArea_6.danceZone === true) {
+        if (this.danceArea_6.danceZone) {
           this.danceArea_6.danceSystem.routine = 'all'
           this.danceArea_6.danceSystem.dance()
         }
-        if (this.danceArea_7.danceZone === true) {
+        if (this.danceArea_7.danceZone) {
           this.danceArea_7.danceSystem.routine = 'all'
           this.danceArea_7.danceSystem.dance()
         }
-        if (this.danceArea_8.danceZone === true) {
+        if (this.danceArea_8.danceZone) {
           this.danceArea_8.danceSystem.routine = 'all'
           this.danceArea_8.danceSystem.dance()
         }
       }
     })
   }
+
   setUp() {
-    //Base Scene.......................................
+    // Base Scene.......................................
     this._scene = engine.addEntity()
     Transform.createOrReplace(this._scene, {
       position: Vector3.create(0, 0, 0),
@@ -365,7 +372,7 @@ export class MainInstance {
       src: 'assets/scene/models/c9b17021-765c-4d9a-9966-ce93a9c323d1/FloorBaseGrass_01/FloorBaseGrass_01.glb'
     })
 
-    //Add Music manually Here........................................
+    // Add Music manually Here........................................
     this.music = engine.addEntity()
     Transform.createOrReplace(this.music, {
       position: Vector3.create(8.32, 0.88, 27.96),
@@ -378,9 +385,9 @@ export class MainInstance {
       loop: true,
       playing: false
     })
-    //......................................................................
+    // ......................................................................
 
-    //Casino ToolBox/////////////////////////////////////////
+    // Casino ToolBox/////////////////////////////////////////
     this.toolbox = engine.addEntity()
     Transform.createOrReplace(this.toolbox, {
       position: Vector3.create(14.873678207397461, 0.09671890735626221, 28.87261199951172),
@@ -389,7 +396,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Ground/First Floor MainDoor ClickArea/////////////////
+    // Ground/First Floor MainDoor ClickArea/////////////////
     this.clickArea = engine.addEntity()
     Transform.createOrReplace(this.clickArea, {
       position: Vector3.create(8, 0.05129086971282959, 3.4753189086914062),
@@ -398,7 +405,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Ground Floor Images(EntranceRightSideV)//////////////////
+    // Ground Floor Images(EntranceRightSideV)//////////////////
     this.imageFromURL = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL, {
       position: Vector3.create(13, 5.098233938217163, 11.8459077835083),
@@ -418,7 +425,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(EntranceleftSideV)/////////////////////
+    // Ground Floor Images(EntranceleftSideV)/////////////////////
     this.imageFromURL2 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL2, {
       position: Vector3.create(3, 5.098233938217163, 11.8459077835083),
@@ -438,7 +445,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(CathouseClubH)//////////////////////////
+    // Ground Floor Images(CathouseClubH)//////////////////////////
     this.imageFromURL3 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL3, {
       position: Vector3.create(0.7716683149337769, 6.480763816833496, 26.80219078063965),
@@ -458,7 +465,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(VideoHallLeftV)////////////////
+    // Ground Floor Images(VideoHallLeftV)////////////////
     this.imageFromURL4 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL4, {
       position: Vector3.create(3.5118160247802734, 5.087592124938965, 36.23207092285156),
@@ -478,7 +485,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(VideoHallLeftV)////////////////
+    // Ground Floor Images(VideoHallLeftV)////////////////
     this.imageFromURL5 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL5, {
       position: Vector3.create(12.316988945007324, 5.087592124938965, 36.20863723754883),
@@ -498,7 +505,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(VideoHallLeftMultiLogo)//////////////
+    // Ground Floor Images(VideoHallLeftMultiLogo)//////////////
     this.imageFromURL6 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL6, {
       position: Vector3.create(15.594130516052246, 5.549926519393921, 40.695884704589844),
@@ -518,7 +525,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor VideoStream/////////////////////////
+    // Ground Floor VideoStream/////////////////////////
     this.videoStream = engine.addEntity()
     Transform.createOrReplace(this.videoStream, {
       position: Vector3.create(8.494138984680176, 4.1933490085601807, 47.39051055908203),
@@ -534,7 +541,7 @@ export class MainInstance {
     })
     const videoTexture = Material.Texture.Video({ videoPlayerEntity: this.videoStream })
     Material.setBasicMaterial(this.videoStream, {
-      texture: videoTexture,
+      texture: videoTexture
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -553,7 +560,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor VideoStream Trigger//////////////
+    // Ground Floor VideoStream Trigger//////////////
     this.triggerArea = engine.addEntity()
     Transform.createOrReplace(this.triggerArea, {
       position: Vector3.create(7.9238691329956055, 0.03669559955596924, 40.7089729309082),
@@ -575,7 +582,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor Images(ElevatorRightH)///////////////
+    // Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL7 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL7, {
       position: Vector3.create(15.566365242004395, 5.2104194164276123, 21.8288516998291),
@@ -595,7 +602,7 @@ export class MainInstance {
       })
     })
 
-    //Ground Floor Images(ElevatorRightH)///////////////
+    // Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL8 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL8, {
       position: Vector3.create(15.566365242004395, 5.2104194164276123, 15.291440963745117),
@@ -615,7 +622,7 @@ export class MainInstance {
       })
     })
 
-    //SecondFloor VideoStream////////////////////////
+    // SecondFloor VideoStream////////////////////////
     this.videoStream2 = engine.addEntity()
     Transform.createOrReplace(this.videoStream2, {
       position: Vector3.create(7.777276039123535, 14.9, 1.1220264434814453),
@@ -631,7 +638,7 @@ export class MainInstance {
     })
     const videoTexture2 = Material.Texture.Video({ videoPlayerEntity: this.videoStream2 })
     Material.setBasicMaterial(this.videoStream2, {
-      texture: videoTexture2,
+      texture: videoTexture2
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -650,7 +657,7 @@ export class MainInstance {
       }
     )
 
-    //SecondFloor VideoStream Trigger (Center Small)//////
+    // SecondFloor VideoStream Trigger (Center Small)//////
     this.triggerArea2 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea2, {
       position: Vector3.create(8.208050727844238, 10.446976661682129, 41.270591735839844),
@@ -672,7 +679,7 @@ export class MainInstance {
       }
     )
 
-    //SecondFloor VideoStream Trigger (CenterLong)/////////
+    // SecondFloor VideoStream Trigger (CenterLong)/////////
     this.triggerArea3 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea3, {
       position: Vector3.create(7.667209625244141, 10.868925094604492, 24.61056900024414),
@@ -694,7 +701,7 @@ export class MainInstance {
       }
     )
 
-    //SecondFloor VideoStream Trigger (LeftSide)/////////
+    // SecondFloor VideoStream Trigger (LeftSide)/////////
     this.triggerArea4 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea4, {
       position: Vector3.create(14.138040542602539, 10.699254989624023, 10.29130744934082),
@@ -716,7 +723,7 @@ export class MainInstance {
       }
     )
 
-    //SecondFloor VideoStream Trigger (RightSide)////////
+    // SecondFloor VideoStream Trigger (RightSide)////////
     this.triggerArea5 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea5, {
       position: Vector3.create(1.989222526550293, 10.688300132751465, 10.241878509521484),
@@ -739,7 +746,21 @@ export class MainInstance {
       }
     )
 
-    //Third Floor VideoStream////////////////////////////
+    utils.triggers.addTrigger(
+      this.triggerArea5,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
+
+    // Third Floor VideoStream////////////////////////////
     this.videoStream3 = engine.addEntity()
     Transform.createOrReplace(this.videoStream3, {
       position: Vector3.create(7.920665740966797, 21.221086883544922, 1.0475330352783203),
@@ -755,7 +776,7 @@ export class MainInstance {
     })
     const videoTexture3 = Material.Texture.Video({ videoPlayerEntity: this.videoStream3 })
     Material.setBasicMaterial(this.videoStream3, {
-      texture: videoTexture3,
+      texture: videoTexture3
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -774,7 +795,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor VideoStream Trigger (RightSide) ////////////
+    // Third Floor VideoStream Trigger (RightSide) ////////////
     this.triggerArea6 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea6, {
       position: Vector3.create(14.118785858154297, 17.828983306884766, 12.364847183227539),
@@ -796,7 +817,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor VideoStream Trigger (LeftSide) ///////////
+    // Third Floor VideoStream Trigger (LeftSide) ///////////
     this.triggerArea7 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea7, {
       position: Vector3.create(1.9480457305908203, 17.84688377380371, 12.353545188903809),
@@ -818,14 +839,14 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor VideoStream (RightSide)///////
+    // Fourth Floor VideoStream (RightSide)///////
     this.videoStream4 = engine.addEntity()
     Transform.createOrReplace(this.videoStream4, {
       position: Vector3.create(8.043211212158203, 25.055, 30.861600875854492),
       rotation: Quaternion.fromEulerDegrees(0, 180, 0),
       scale: Vector3.create(3.211877460479736, 3, 1),
-      parent: this._scene 
-    }) 
+      parent: this._scene
+    })
     MeshCollider.setPlane(this.videoStream4)
     MeshRenderer.setPlane(this.videoStream4)
     VideoPlayer.create(this.videoStream4, {
@@ -834,7 +855,7 @@ export class MainInstance {
     })
     const videoTexture4 = Material.Texture.Video({ videoPlayerEntity: this.videoStream4 })
     Material.setBasicMaterial(this.videoStream4, {
-      texture: videoTexture4,
+      texture: videoTexture4
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -853,7 +874,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor VideoStream (LeftSide)////////////////
+    // Fourth Floor VideoStream (LeftSide)////////////////
     this.videoStream5 = engine.addEntity()
     Transform.createOrReplace(this.videoStream5, {
       position: Vector3.create(8.043211212158203, 25.055, 27.55222152709961),
@@ -869,7 +890,7 @@ export class MainInstance {
     })
     const videoTexture5 = Material.Texture.Video({ videoPlayerEntity: this.videoStream5 })
     Material.setBasicMaterial(this.videoStream5, {
-      texture: videoTexture5,
+      texture: videoTexture5
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -888,7 +909,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor NFT Picture Frame1///////////////////////////
+    // Fourth Floor NFT Picture Frame1///////////////////////////
     this.nftPictureFrame = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame, {
       position: Vector3.create(0.5295686721801758, 24.883743286132812, 38.06391143798828),
@@ -902,7 +923,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Fourth Floor NFT Picture Frame2///////////////////////////
+    // Fourth Floor NFT Picture Frame2///////////////////////////
     this.nftPictureFrame2 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame2, {
       position: Vector3.create(0.5295686721801758, 24.883743286132812, 33.56391143798828),
@@ -916,7 +937,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Fourth Floor NFT Picture Frame3///////////////////////////
+    // Fourth Floor NFT Picture Frame3///////////////////////////
     this.nftPictureFrame3 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame3, {
       position: Vector3.create(0.5295686721801758, 24.883743286132812, 29.06391143798828),
@@ -930,7 +951,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Fourth Floor NFT Picture Frame4///////////////////////////
+    // Fourth Floor NFT Picture Frame4///////////////////////////
     this.nftPictureFrame4 = engine.addEntity()
     Transform.createOrReplace(this.nftPictureFrame4, {
       position: Vector3.create(0.5295686721801758, 24.883743286132812, 24.56391143798828),
@@ -944,7 +965,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Top Floor TriggerArea////////////////////////////////
+    // Top Floor TriggerArea////////////////////////////////
     this.triggerArea8 = engine.addEntity()
     Transform.createOrReplace(this.triggerArea8, {
       position: Vector3.create(8.126971244812012, 28.760574340820312, 34.119720458984375),
@@ -966,7 +987,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor VideoStream///////////////////////////////
+    // Top Floor VideoStream///////////////////////////////
     this.videoStream6 = engine.addEntity()
     Transform.createOrReplace(this.videoStream6, {
       position: Vector3.create(8.29113483428955, 32.2, 47.40890121459961),
@@ -982,7 +1003,7 @@ export class MainInstance {
     })
     const videoTexture6 = Material.Texture.Video({ videoPlayerEntity: this.videoStream6 })
     Material.setBasicMaterial(this.videoStream6, {
-      texture: videoTexture6,
+      texture: videoTexture6
     })
     pointerEventsSystem.onPointerDown(
       {
@@ -1001,11 +1022,11 @@ export class MainInstance {
       }
     )
 
-    //Floor Buttons/////////////////////////////////////////
+    // Floor Buttons/////////////////////////////////////////
 
-    //Ground Floor Buttons/////////////////////////////////////////
+    // Ground Floor Buttons/////////////////////////////////////////
 
-    //Ground Floor 1st floorbtn......................
+    // Ground Floor 1st floorbtn......................
     this.tofirstfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tofirstfloorbutton, {
       position: Vector3.create(15.23768424987793, 1.6894843578338623, 23.796602249145508),
@@ -1034,7 +1055,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor 2nd floorbtn......................
+    // Ground Floor 2nd floorbtn......................
     this.tosecondfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tosecondfloorbutton, {
       position: Vector3.create(15.227154731750488, 1.9373252391815186, 23.43264389038086),
@@ -1063,7 +1084,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor 3rd floorbtn......................
+    // Ground Floor 3rd floorbtn......................
     this.tothirdfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton, {
       position: Vector3.create(15.239447593688965, 1.7488524913787842, 23.079757690429688),
@@ -1092,7 +1113,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor 4th floorbtn......................
+    // Ground Floor 4th floorbtn......................
     this.tofourthfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tofourthfloorbutton, {
       position: Vector3.create(15.241415023803711, 1.337921142578125, 23.0618896484375),
@@ -1121,7 +1142,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor 5th loorbtn......................
+    // Ground Floor 5th loorbtn......................
     this.tofifthfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton, {
       position: Vector3.create(15.242955207824707, 1.1119731664657593, 23.432022094726562),
@@ -1150,7 +1171,7 @@ export class MainInstance {
       }
     )
 
-    //Ground Floor top floorbtn......................
+    // Ground Floor top floorbtn......................
     this.totopfloorbutton = engine.addEntity()
     Transform.createOrReplace(this.totopfloorbutton, {
       position: Vector3.create(15.22166633605957, 1.30178964138031, 23.835508346557617),
@@ -1179,9 +1200,9 @@ export class MainInstance {
       }
     )
 
-    //Second Floor Buttons/////////////////////////////////////////
+    // Second Floor Buttons/////////////////////////////////////////
 
-    //Second Floor 1st floorbtn......................
+    // Second Floor 1st floorbtn......................
     this.tofirstfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.tofirstfloorbutton2, {
       position: Vector3.create(15.23768424987793, 11.706573486328125, 22.60639762878418),
@@ -1210,7 +1231,7 @@ export class MainInstance {
       }
     )
 
-    //Second Floor 2nd floorbtn......................
+    // Second Floor 2nd floorbtn......................
     this.tosecondfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.tosecondfloorbutton2, {
       position: Vector3.create(15.227154731750488, 11.954414367675781, 22.24243927001953),
@@ -1218,7 +1239,9 @@ export class MainInstance {
       scale: Vector3.create(1, 1, 1),
       parent: this._scene
     })
-    GltfContainer.create(this.tosecondfloorbutton2, { src: this.floor_button_2 })
+    GltfContainer.create(this.tosecondfloorbutton2, {
+      src: this.floor_button_2
+    })
     const tosecondfloorbutton2_collider = engine.addEntity()
     Transform.create(tosecondfloorbutton2_collider, {
       position: Vector3.create(15.227154731750488, 11.954414367675781, 22.24243927001953),
@@ -1239,7 +1262,7 @@ export class MainInstance {
       }
     )
 
-    //Second Floor 3rd floorbtn......................
+    // Second Floor 3rd floorbtn......................
     this.tothirdfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton2, {
       position: Vector3.create(15.239447593688965, 11.765941619873047, 21.88955307006836),
@@ -1267,7 +1290,7 @@ export class MainInstance {
         this.elevator(3)
       }
     )
-    //Second Floor 4th floorbtn......................
+    // Second Floor 4th floorbtn......................
     this.tofourthfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.tofourthfloorbutton2, {
       position: Vector3.create(15.241415023803711, 11.355010032653809, 21.871685028076172),
@@ -1275,7 +1298,9 @@ export class MainInstance {
       scale: Vector3.create(1, 1, 1),
       parent: this._scene
     })
-    GltfContainer.create(this.tofourthfloorbutton2, { src: this.floor_button_4 })
+    GltfContainer.create(this.tofourthfloorbutton2, {
+      src: this.floor_button_4
+    })
     const tofourthfloorbutton2_collider = engine.addEntity()
     Transform.create(tofourthfloorbutton2_collider, {
       position: Vector3.create(15.241415023803711, 11.355010032653809, 21.871685028076172),
@@ -1295,7 +1320,7 @@ export class MainInstance {
         this.elevator(4)
       }
     )
-    //Second Floor 5th floorbtn......................
+    // Second Floor 5th floorbtn......................
     this.tofifthfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton2, {
       position: Vector3.create(15.242955207824707, 11.12906265258789, 22.241817474365234),
@@ -1324,7 +1349,7 @@ export class MainInstance {
       }
     )
 
-    //Second Floor top floorbtn......................
+    // Second Floor top floorbtn......................
     this.totopfloorbutton2 = engine.addEntity()
     Transform.createOrReplace(this.totopfloorbutton2, {
       position: Vector3.create(15.22166633605957, 11.318879127502441, 22.64530372619629),
@@ -1353,9 +1378,9 @@ export class MainInstance {
       }
     )
 
-    //Third Floor Buttons/////////////////////////////////////////
+    // Third Floor Buttons/////////////////////////////////////////
 
-    //Third Floor 1st floorbtn......................
+    // Third Floor 1st floorbtn......................
     this.tofirstfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.tofirstfloorbutton3, {
       position: Vector3.create(0.7356014251708984, 18.60797882080078, 6.383121490478516),
@@ -1384,7 +1409,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor 2nd floorbtn......................
+    // Third Floor 2nd floorbtn......................
     this.tosecondfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.tosecondfloorbutton3, {
       position: Vector3.create(0.7461305260658264, 18.855819702148438, 6.747079372406006),
@@ -1392,7 +1417,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000017881393433, 1, 1.0000017881393433),
       parent: this._scene
     })
-    GltfContainer.create(this.tosecondfloorbutton3, { src: this.floor_button_2 })
+    GltfContainer.create(this.tosecondfloorbutton3, {
+      src: this.floor_button_2
+    })
     const tosecondfloorbutton3_collider = engine.addEntity()
     Transform.create(tosecondfloorbutton3_collider, {
       position: Vector3.create(0.7461305260658264, 18.855819702148438, 6.747079372406006),
@@ -1413,7 +1440,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor 3rd floorbtn......................
+    // Third Floor 3rd floorbtn......................
     this.tothirdfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton3, {
       position: Vector3.create(0.7338376045227051, 18.667346954345703, 7.099966049194336),
@@ -1442,7 +1469,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor 4th floorbtn......................
+    // Third Floor 4th floorbtn......................
     this.tofourthfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.tofourthfloorbutton3, {
       position: Vector3.create(0.7318701148033142, 18.25641441345215, 7.117834091186523),
@@ -1450,7 +1477,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000017881393433, 1, 1.0000017881393433),
       parent: this._scene
     })
-    GltfContainer.create(this.tofourthfloorbutton3, { src: this.floor_button_4 })
+    GltfContainer.create(this.tofourthfloorbutton3, {
+      src: this.floor_button_4
+    })
     const tofourthfloorbutton3_collider = engine.addEntity()
     Transform.create(tofourthfloorbutton3_collider, {
       position: Vector3.create(0.7318701148033142, 18.25641441345215, 7.117834091186523),
@@ -1471,7 +1500,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor 5th floorbtn......................
+    // Third Floor 5th floorbtn......................
     this.tofifthfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton3, {
       position: Vector3.create(0.7303299307823181, 18.030467987060547, 6.747701644897461),
@@ -1500,7 +1529,7 @@ export class MainInstance {
       }
     )
 
-    //Third Floor top floorbtn......................
+    // Third Floor top floorbtn......................
     this.totopfloorbutton3 = engine.addEntity()
     Transform.createOrReplace(this.totopfloorbutton3, {
       position: Vector3.create(0.7516188621520996, 18.220285415649414, 6.344215393066406),
@@ -1529,9 +1558,9 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor Buttons/////////////////////////////////////////
+    // Fourth Floor Buttons/////////////////////////////////////////
 
-    //Fourth Floor 1st floorbtn......................
+    // Fourth Floor 1st floorbtn......................
     this.tofirstfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tofirstfloorbutton4, {
       position: Vector3.create(15.349342346191406, 24.92435073852539, 24.03135871887207),
@@ -1560,7 +1589,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor 2nd floorbtn......................
+    // Fourth Floor 2nd floorbtn......................
     this.tosecondfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tosecondfloorbutton4, {
       position: Vector3.create(15.338813781738281, 25.172191619873047, 23.667400360107422),
@@ -1568,7 +1597,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000016689300537, 1, 1.0000016689300537),
       parent: this._scene
     })
-    GltfContainer.create(this.tosecondfloorbutton4, { src: this.floor_button_2 })
+    GltfContainer.create(this.tosecondfloorbutton4, {
+      src: this.floor_button_2
+    })
     const tosecondfloorbutton4_collider = engine.addEntity()
     Transform.create(tosecondfloorbutton4_collider, {
       position: Vector3.create(15.338813781738281, 25.172191619873047, 23.667400360107422),
@@ -1588,7 +1619,7 @@ export class MainInstance {
         this.elevator(2)
       }
     )
-    //Fourth Floor 3rd floorbtn......................
+    // Fourth Floor 3rd floorbtn......................
     this.tothirdfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton4, {
       position: Vector3.create(15.351106643676758, 24.983718872070312, 23.314512252807617),
@@ -1617,7 +1648,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor 4th floorbtn......................
+    // Fourth Floor 4th floorbtn......................
     this.tofourthfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tofourthfloorbutton4, {
       position: Vector3.create(15.353073120117188, 24.572786331176758, 23.29664421081543),
@@ -1625,7 +1656,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000016689300537, 1, 1.0000016689300537),
       parent: this._scene
     })
-    GltfContainer.create(this.tofourthfloorbutton4, { src: this.floor_button_4 })
+    GltfContainer.create(this.tofourthfloorbutton4, {
+      src: this.floor_button_4
+    })
     const tofourthfloorbutton4_collider = engine.addEntity()
     Transform.create(tofourthfloorbutton4_collider, {
       position: Vector3.create(15.353073120117188, 24.572786331176758, 23.29664421081543),
@@ -1646,7 +1679,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor 5th floorbtn......................
+    // Fourth Floor 5th floorbtn......................
     this.tofifthfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton4, {
       position: Vector3.create(15.3546142578125, 24.346839904785156, 23.666776657104492),
@@ -1675,7 +1708,7 @@ export class MainInstance {
       }
     )
 
-    //Fourth Floor top floorbtn......................
+    // Fourth Floor top floorbtn......................
     this.totopfloorbutton4 = engine.addEntity()
     Transform.createOrReplace(this.totopfloorbutton4, {
       position: Vector3.create(15.333324432373047, 24.536657333374023, 24.07026481628418),
@@ -1704,9 +1737,9 @@ export class MainInstance {
       }
     )
 
-    //Top Floor Buttons/////////////////////////////////////////
+    // Top Floor Buttons/////////////////////////////////////////
 
-    //Top Floor 1st floorbtn......................
+    // Top Floor 1st floorbtn......................
     this.tofirstfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.tofirstfloorbutton5, {
       position: Vector3.create(14.98353385925293, 30.0623836517334, 23.698261260986328),
@@ -1735,7 +1768,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor 2nd floorbtn......................
+    // Top Floor 2nd floorbtn......................
     this.tosecondfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.tosecondfloorbutton5, {
       position: Vector3.create(14.973005294799805, 30.310224533081055, 23.33430290222168),
@@ -1743,7 +1776,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000016689300537, 1, 1.0000016689300537),
       parent: this._scene
     })
-    GltfContainer.create(this.tosecondfloorbutton5, { src: this.floor_button_2 })
+    GltfContainer.create(this.tosecondfloorbutton5, {
+      src: this.floor_button_2
+    })
     const tosecondfloorbutton5_collider = engine.addEntity()
     Transform.create(tosecondfloorbutton5_collider, {
       position: Vector3.create(14.973005294799805, 30.310224533081055, 23.33430290222168),
@@ -1764,7 +1799,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor 3rd floorbtn......................
+    // Top Floor 3rd floorbtn......................
     this.tothirdfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.tothirdfloorbutton5, {
       position: Vector3.create(14.985298156738281, 30.12175178527832, 22.981414794921875),
@@ -1793,7 +1828,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor 4th floorbtn......................
+    // Top Floor 4th floorbtn......................
     this.tofourthfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.tofourthfloorbutton5, {
       position: Vector3.create(14.987264633178711, 29.710819244384766, 22.963546752929688),
@@ -1801,7 +1836,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000016689300537, 1, 1.0000016689300537),
       parent: this._scene
     })
-    GltfContainer.create(this.tofourthfloorbutton5, { src: this.floor_button_4 })
+    GltfContainer.create(this.tofourthfloorbutton5, {
+      src: this.floor_button_4
+    })
     const tofourthfloorbutton5_collider = engine.addEntity()
     Transform.create(tofourthfloorbutton5_collider, {
       position: Vector3.create(14.987264633178711, 29.710819244384766, 22.963546752929688),
@@ -1822,7 +1859,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor 5th floorbtn......................
+    // Top Floor 5th floorbtn......................
     this.tofifthfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.tofifthfloorbutton5, {
       position: Vector3.create(14.988805770874023, 29.484872817993164, 23.33367919921875),
@@ -1851,7 +1888,7 @@ export class MainInstance {
       }
     )
 
-    //Top Floor top floorbtn......................
+    // Top Floor top floorbtn......................
     this.totopfloorbutton5 = engine.addEntity()
     Transform.createOrReplace(this.totopfloorbutton5, {
       position: Vector3.create(14.96751594543457, 29.67469024658203, 23.737167358398438),
@@ -1880,9 +1917,9 @@ export class MainInstance {
       }
     )
 
-    //Floor Buttons Ends Here/////////////////////////////////////////
+    // Floor Buttons Ends Here/////////////////////////////////////////
 
-    //Casino Main Door////////////////////////////////////////////////////
+    // Casino Main Door////////////////////////////////////////////////////
     this.door = engine.addEntity()
     Transform.createOrReplace(this.door, {
       position: Vector3.create(8.065906524658203, 2.3859095573425293, 3.5),
@@ -1895,7 +1932,9 @@ export class MainInstance {
       scale: Vector3.create(1.0000014305114746, 1, 1.0000014305114746),
       parent: this._scene
     })
-    GltfContainer.create(this.door, { src: 'assets/scene/models/b8c79e3b-c157-4095-bb8d-a4bf9fb561b7/door.glb' })
+    GltfContainer.create(this.door, {
+      src: 'assets/scene/models/b8c79e3b-c157-4095-bb8d-a4bf9fb561b7/door.glb'
+    })
     MeshCollider.setBox(this.door)
     pointerEventsSystem.onPointerDown(
       {
@@ -1910,7 +1949,7 @@ export class MainInstance {
       }
     )
 
-    //promo Banar Images(OutSideV)/////////////////////////////
+    // promo Banar Images(OutSideV)/////////////////////////////
 
     this.imageFromURL9 = engine.addEntity()
     Transform.createOrReplace(this.imageFromURL9, {
@@ -1931,7 +1970,7 @@ export class MainInstance {
       })
     })
 
-    //Third Floor BaseFile........................................
+    // Third Floor BaseFile........................................
     this.thirdfloor = engine.addEntity()
     Transform.createOrReplace(this.thirdfloor, {
       position: Vector3.create(8.063750267028809, 0, 24.368267059326172),
@@ -1948,7 +1987,7 @@ export class MainInstance {
       src: 'assets/scene/models/195c413e-ee13-4dd5-9660-261163283d20/3.glb'
     })
 
-    //Fourth Floor BaseFile........................................
+    // Fourth Floor BaseFile........................................
     this.fourthfloor = engine.addEntity()
 
     Transform.createOrReplace(this.fourthfloor, {
@@ -1967,7 +2006,7 @@ export class MainInstance {
       src: 'assets/scene/models/4a283613-46ca-4518-877f-64d39f76f85d/fourthFloor.glb'
     })
 
-    //Ground/First Floor BaseFile........................................
+    // Ground/First Floor BaseFile........................................
     this.groundfirstfloor = engine.addEntity()
 
     Transform.createOrReplace(this.groundfirstfloor, {
@@ -1986,7 +2025,7 @@ export class MainInstance {
       src: 'assets/scene/models/547ade1d-9309-47a9-a4f7-ad43eab9e73d/groundFirstFloor.glb'
     })
 
-    //Second Floor BaseFile........................................
+    // Second Floor BaseFile........................................
     this.secondfloor = engine.addEntity()
 
     Transform.createOrReplace(this.secondfloor, {
@@ -2000,7 +2039,7 @@ export class MainInstance {
       src: 'assets/scene/models/14968ac1-70ee-4922-82f6-26ea5a65669d/secondFloor.glb'
     })
 
-    //Top Floor BaseFile........................................
+    // Top Floor BaseFile........................................
     this.topfloor = engine.addEntity()
 
     Transform.createOrReplace(this.topfloor, {
@@ -2019,7 +2058,7 @@ export class MainInstance {
       src: 'assets/scene/models/0f3495ca-6b04-4654-a68e-c2eb204bce9b/TopFloor2.glb'
     })
 
-    //Top Floor Video Screen Restriction1..................................
+    // Top Floor Video Screen Restriction1..................................
     this.invisibleWall = engine.addEntity()
 
     Transform.createOrReplace(this.invisibleWall, {
@@ -2034,7 +2073,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Top Floor Video Screen Restriction2..................................
+    // Top Floor Video Screen Restriction2..................................
     this.invisibleWall2 = engine.addEntity()
 
     Transform.createOrReplace(this.invisibleWall2, {
@@ -2049,7 +2088,7 @@ export class MainInstance {
       parent: this._scene
     })
 
-    //Top Floor Video Screen Restriction3..................................
+    // Top Floor Video Screen Restriction3..................................
     this.invisibleWall3 = engine.addEntity()
 
     Transform.createOrReplace(this.invisibleWall3, {
@@ -2063,7 +2102,7 @@ export class MainInstance {
       scale: Vector3.create(2.885469913482666, 8.16878604888916, 0.19595777988433838),
       parent: this._scene
     })
-    //Top Floor Video Screen Restriction4.......................................
+    // Top Floor Video Screen Restriction4.......................................
     this.invisibleWall4 = engine.addEntity()
 
     Transform.createOrReplace(this.invisibleWall4, {
@@ -2078,6 +2117,7 @@ export class MainInstance {
       parent: this._scene
     })
   }
+
   elevator(floor: number) {
     switch (floor) {
       case 1:

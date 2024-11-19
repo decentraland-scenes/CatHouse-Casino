@@ -1,10 +1,10 @@
-import { Animator, engine, Entity, InputAction, MeshCollider, pointerEventsSystem, Transform } from '@dcl/sdk/ecs'
-import { Quaternion, Vector3 } from '@dcl/sdk/math'
+import { engine, type Entity, InputAction, pointerEventsSystem } from '@dcl/sdk/ecs'
+import { type Quaternion, Vector3 } from '@dcl/sdk/math'
 import * as npc from 'dcl-npc-toolkit'
-import { Dialog } from 'dcl-npc-toolkit'
+import { type Dialog } from 'dcl-npc-toolkit'
 import * as utils from '@dcl-sdk/utils'
 
-//Defining a Security Guard at Club Entrance.................
+// Defining a Security Guard at Club Entrance.................
 
 export class NPC {
   entity: Entity = engine.addEntity()
@@ -55,7 +55,7 @@ export class NPC {
   }
 }
 
-//Guard's Conversations with the Player/User/Customer.......
+// Guard's Conversations with the Player/User/Customer.......
 export const guardCheckPoint: Dialog[] = [
   {
     text: 'Hey You! <b>CatHouse</b> is not for anyone under the age of 18......',
