@@ -14,7 +14,7 @@ export class NPC {
     rotation: Quaternion,
     GLTF: string,
     reactDistance: number,
-    onActivate: () => void = () => {},
+    onActivate: () => void = () => {}
   ) {
     this.entity = npc.create(
       {

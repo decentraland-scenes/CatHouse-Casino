@@ -2155,18 +2155,18 @@ export class MainInstance {
     utils.triggers.addTrigger(this.goodbyeDoor, 1, 1, [{ type: 'box', scale: Vector3.create(3, 3, 3) }], () => {
       Tween.createOrReplace(this.door, {
         mode: Tween.Mode.Move({
-          start: Vector3.create(8.065906524658203, 7, 3.5), 
+          start: Vector3.create(8.065906524658203, 7, 3.5),
           end: Vector3.create(8.065906524658203, 2.3859095573425293, 3.5)
         }),
         duration: 1500,
         easingFunction: EasingFunction.EF_LINEAR
       })
-      Transform.getMutable(this.closedDoor).scale = Vector3.create(3,5,3)
+      Transform.getMutable(this.closedDoor).scale = Vector3.create(3, 5, 3)
     })
     // Closed Trigger Door
     Transform.create(this.closedDoor, {
       position: Vector3.create(8.12, 0.88, 6.79),
-      scale: Vector3.create(0,0,0),
+      scale: Vector3.create(0, 0, 0),
       rotation: Quaternion.create(0, 0, 0),
       parent: this._scene
     })
@@ -2180,7 +2180,7 @@ export class MainInstance {
         }
       },
       () => {
-        Transform.getMutable(this.closedDoor).scale = Vector3.create(0,0,0)
+        Transform.getMutable(this.closedDoor).scale = Vector3.create(0, 0, 0)
         openDialogWindow(this.clubGuard.entity, guardCheckPoint, 3)
         Tween.createOrReplace(this.door, {
           mode: Tween.Mode.Move({
