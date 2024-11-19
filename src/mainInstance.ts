@@ -11,7 +11,8 @@ import {
   inputSystem,
   PointerEventType,
   Material,
-  MeshRenderer
+  MeshRenderer,
+  VideoPlayer
 } from '@dcl/sdk/ecs'
 import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
 import { movePlayerTo } from '~system/RestrictedActions'
@@ -22,6 +23,15 @@ import * as ui from 'dcl-ui-toolkit'
 import { payMana, accessSecondFloor, accessThirdFloor, payMana2 } from './mana'
 import { DonationsBox } from './donationsBox'
 import { DanceArea } from './dancingFloors'
+import * as utils from '@dcl-sdk/utils'
+
+// TEST VIDEOS FOR STREAMING - REPLACE THEM WITH THE CUSTOM LINK
+const videoStream_src_ground = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_2_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_3_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_4_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_4b_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
+const videoStream_src_top_floor = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8' //Drop your custom link to stream video
 
 export class MainInstance {
   gameController: GameController
@@ -511,11 +521,37 @@ export class MainInstance {
     //Ground Floor VideoStream/////////////////////////
     this.videoStream = engine.addEntity()
     Transform.createOrReplace(this.videoStream, {
-      position: Vector3.create(8.464138984680176, 1.0633490085601807, 47.39051055908203),
-      rotation: Quaternion.create(-6.63836280257314e-15, -1, 1.1920927533992653e-7, -1.4901159417490817e-8),
-      scale: Vector3.create(3.3353781700134277, 3.852238178253174, 1.0000009536743164),
+      position: Vector3.create(8.494138984680176, 4.1933490085601807, 47.39051055908203),
+      rotation: Quaternion.fromEulerDegrees(180, 180, 180),
+      scale: Vector3.create(9.8353781700134277, 6.452238178253174, 1.0000009536743164),
       parent: this._scene
     })
+    MeshCollider.setPlane(this.videoStream)
+    MeshRenderer.setPlane(this.videoStream)
+    VideoPlayer.create(this.videoStream, {
+      src: videoStream_src_ground,
+      playing: false
+    })
+    const videoTexture = Material.Texture.Video({ videoPlayerEntity: this.videoStream })
+    Material.setBasicMaterial(this.videoStream, {
+      texture: videoTexture,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream).playing === false) {
+          VideoPlayer.getMutable(this.videoStream).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Ground Floor VideoStream Trigger//////////////
     this.triggerArea = engine.addEntity()
@@ -525,6 +561,19 @@ export class MainInstance {
       scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream).playing === false) {
+          VideoPlayer.getMutable(this.videoStream).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Ground Floor Images(ElevatorRightH)///////////////
     this.imageFromURL7 = engine.addEntity()
@@ -569,11 +618,37 @@ export class MainInstance {
     //SecondFloor VideoStream////////////////////////
     this.videoStream2 = engine.addEntity()
     Transform.createOrReplace(this.videoStream2, {
-      position: Vector3.create(7.777276039123535, 12.846161842346191, 1.1220264434814453),
-      rotation: Quaternion.create(3.552713678800501e-15, -1.4901159417490817e-8, 1.4298874990948882e-14, 1),
-      scale: Vector3.create(3.7844345569610596, 2.405125379562378, 1.0000009536743164),
+      position: Vector3.create(7.777276039123535, 14.9, 1.1220264434814453),
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
+      scale: Vector3.create(11.5, 4.105125379562378, 1.0000009536743164),
       parent: this._scene
     })
+    MeshCollider.setPlane(this.videoStream2)
+    MeshRenderer.setPlane(this.videoStream2)
+    VideoPlayer.create(this.videoStream2, {
+      src: videoStream_src_2_floor,
+      playing: false
+    })
+    const videoTexture2 = Material.Texture.Video({ videoPlayerEntity: this.videoStream2 })
+    Material.setBasicMaterial(this.videoStream2, {
+      texture: videoTexture2,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream2,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //SecondFloor VideoStream Trigger (Center Small)//////
     this.triggerArea2 = engine.addEntity()
@@ -583,6 +658,19 @@ export class MainInstance {
       scale: Vector3.create(3.9054834842681885, 0.30041220784187317, 3.448207139968872),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea2,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //SecondFloor VideoStream Trigger (CenterLong)/////////
     this.triggerArea3 = engine.addEntity()
@@ -592,6 +680,19 @@ export class MainInstance {
       scale: Vector3.create(6.003643989562988, 0.46044936776161194, 22.413347244262695),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea3,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //SecondFloor VideoStream Trigger (LeftSide)/////////
     this.triggerArea4 = engine.addEntity()
@@ -601,6 +702,19 @@ export class MainInstance {
       scale: Vector3.create(2.710418701171875, 0.48614615201950073, 3.8268330097198486),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea4,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //SecondFloor VideoStream Trigger (RightSide)////////
     this.triggerArea5 = engine.addEntity()
@@ -611,14 +725,54 @@ export class MainInstance {
       parent: this._scene
     })
 
+    utils.triggers.addTrigger(
+      this.triggerArea5,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream2).playing === false) {
+          VideoPlayer.getMutable(this.videoStream2).playing = true
+        } else {
+          return
+        }
+      }
+    )
+
     //Third Floor VideoStream////////////////////////////
     this.videoStream3 = engine.addEntity()
     Transform.createOrReplace(this.videoStream3, {
-      position: Vector3.create(7.920665740966797, 18.821086883544922, 1.0475330352783203),
-      rotation: Quaternion.create(3.552713678800501e-15, -1.4901159417490817e-8, 1.4298874990948882e-14, 1),
-      scale: Vector3.create(3.6798388957977295, 2.8050894737243652, 1.0000009536743164),
+      position: Vector3.create(7.920665740966797, 21.221086883544922, 1.0475330352783203),
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
+      scale: Vector3.create(10.6798388957977295, 4.8050894737243652, 1.0000009536743164),
       parent: this._scene
     })
+    MeshCollider.setPlane(this.videoStream3)
+    MeshRenderer.setPlane(this.videoStream3)
+    VideoPlayer.create(this.videoStream3, {
+      src: videoStream_src_3_floor,
+      playing: false
+    })
+    const videoTexture3 = Material.Texture.Video({ videoPlayerEntity: this.videoStream3 })
+    Material.setBasicMaterial(this.videoStream3, {
+      texture: videoTexture3,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream3,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream3).playing === false) {
+          VideoPlayer.getMutable(this.videoStream3).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Third Floor VideoStream Trigger (RightSide) ////////////
     this.triggerArea6 = engine.addEntity()
@@ -628,6 +782,19 @@ export class MainInstance {
       scale: Vector3.create(2.710418701171875, 0.5463231205940247, 3.8268330097198486),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea6,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream3).playing === false) {
+          VideoPlayer.getMutable(this.videoStream3).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Third Floor VideoStream Trigger (LeftSide) ///////////
     this.triggerArea7 = engine.addEntity()
@@ -637,24 +804,89 @@ export class MainInstance {
       scale: Vector3.create(2.710418701171875, 0.5436291098594666, 3.8268330097198486),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea7,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream3).playing === false) {
+          VideoPlayer.getMutable(this.videoStream3).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Fourth Floor VideoStream (RightSide)///////
     this.videoStream4 = engine.addEntity()
     Transform.createOrReplace(this.videoStream4, {
-      position: Vector3.create(8.053211212158203, 23.609941482543945, 30.861600875854492),
-      rotation: Quaternion.create(-5.3015830285129285e-15, 2.9802322387695312e-8, 3.552713678800501e-15, -1),
-      scale: Vector3.create(1.0841877460479736, 1.7689199447631836, 1),
-      parent: this._scene
+      position: Vector3.create(8.043211212158203, 25.055, 30.861600875854492),
+      rotation: Quaternion.fromEulerDegrees(0, 180, 0),
+      scale: Vector3.create(3.211877460479736, 3, 1),
+      parent: this._scene 
+    }) 
+    MeshCollider.setPlane(this.videoStream4)
+    MeshRenderer.setPlane(this.videoStream4)
+    VideoPlayer.create(this.videoStream4, {
+      src: videoStream_src_4_floor,
+      playing: false
     })
+    const videoTexture4 = Material.Texture.Video({ videoPlayerEntity: this.videoStream4 })
+    Material.setBasicMaterial(this.videoStream4, {
+      texture: videoTexture4,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream4,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream4).playing === false) {
+          VideoPlayer.getMutable(this.videoStream4).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Fourth Floor VideoStream (LeftSide)////////////////
     this.videoStream5 = engine.addEntity()
     Transform.createOrReplace(this.videoStream5, {
-      position: Vector3.create(8.048172950744629, 23.593040466308594, 27.55222152709961),
-      rotation: Quaternion.create(3.5961016709741816e-15, 1, -1.1920927533992653e-7, 1.1920927533992653e-7),
-      scale: Vector3.create(1.0841909646987915, 1.7689199447631836, 1.000003457069397),
+      position: Vector3.create(8.043211212158203, 25.055, 27.55222152709961),
+      rotation: Quaternion.fromEulerDegrees(0, 0, 0),
+      scale: Vector3.create(3.211877460479736, 3, 1),
       parent: this._scene
     })
+    MeshCollider.setPlane(this.videoStream5)
+    MeshRenderer.setPlane(this.videoStream5)
+    VideoPlayer.create(this.videoStream5, {
+      src: videoStream_src_4b_floor,
+      playing: false
+    })
+    const videoTexture5 = Material.Texture.Video({ videoPlayerEntity: this.videoStream5 })
+    Material.setBasicMaterial(this.videoStream5, {
+      texture: videoTexture5,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream5,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream5).playing === false) {
+          VideoPlayer.getMutable(this.videoStream5).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Fourth Floor NFT Picture Frame1///////////////////////////
     this.nftPictureFrame = engine.addEntity()
@@ -720,15 +952,54 @@ export class MainInstance {
       scale: Vector3.create(5.48532772064209, 0.2400498241186142, 8.471725463867188),
       parent: this._scene
     })
+    utils.triggers.addTrigger(
+      this.triggerArea8,
+      1,
+      1,
+      [{ type: 'box', scale: Vector3.create(10.423848152160645, 0.6103260517120361, 8.59271240234375) }],
+      () => {
+        if (VideoPlayer.get(this.videoStream6).playing === false) {
+          VideoPlayer.getMutable(this.videoStream6).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Top Floor VideoStream///////////////////////////////
     this.videoStream6 = engine.addEntity()
     Transform.createOrReplace(this.videoStream6, {
-      position: Vector3.create(8.29113483428955, 29.396575927734375, 47.40890121459961),
-      rotation: Quaternion.create(-6.63836280257314e-15, -1, 1.1920927533992653e-7, -1.4901159417490817e-8),
-      scale: Vector3.create(4.295584678649902, 3.3984553813934326, 1.0000009536743164),
+      position: Vector3.create(8.29113483428955, 32.2, 47.40890121459961),
+      rotation: Quaternion.fromEulerDegrees(0, 0, 0),
+      scale: Vector3.create(12.594584678649902, 5.65, 1.03),
       parent: this._scene
     })
+    MeshCollider.setPlane(this.videoStream6)
+    MeshRenderer.setPlane(this.videoStream6)
+    VideoPlayer.create(this.videoStream6, {
+      src: videoStream_src_top_floor,
+      playing: false
+    })
+    const videoTexture6 = Material.Texture.Video({ videoPlayerEntity: this.videoStream6 })
+    Material.setBasicMaterial(this.videoStream6, {
+      texture: videoTexture6,
+    })
+    pointerEventsSystem.onPointerDown(
+      {
+        entity: this.videoStream6,
+        opts: {
+          button: InputAction.IA_POINTER,
+          hoverText: 'Play Video'
+        }
+      },
+      () => {
+        if (VideoPlayer.get(this.videoStream6).playing === false) {
+          VideoPlayer.getMutable(this.videoStream6).playing = true
+        } else {
+          return
+        }
+      }
+    )
 
     //Floor Buttons/////////////////////////////////////////
 
