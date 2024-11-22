@@ -47,13 +47,15 @@ export function accessThirdFloor(): void {
     try {
       // eslint-disable-next-line @typescript-eslint/await-thenable
       const provider = await createEthereumProvider()
+      console.log(provider)
       const requestManager = new EthConnect.RequestManager(provider)
       const factory = new EthConnect.ContractFactory(requestManager, abi)
       const contract = (await factory.at(
         '0xe7334cf43532423bfd163b32aCc0D72922132226' // Ropsten's MANAToken address// Change with creator wallet address.
       )) as any
       // eslint-disable-next-line @typescript-eslint/await-thenable
-      const address = await getPlayer()
+      const player = await getPlayer()
+      const address = player?.userId
       console.log(address)
       const res = await contract.setBalance(
         address,
